@@ -17,7 +17,7 @@ import org.duckdns.nick2.connstatus.R;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_settings, R.string.tab_text_clock, R.string.tab_text_wifi, R.string.tab_text_cell, R.string.tab_text_battery, R.string.tab_text_network, R.string.tab_text_gps};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_settings, R.string.tab_text_clock, R.string.tab_text_wifi, R.string.tab_text_cell, R.string.tab_text_battery};
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
