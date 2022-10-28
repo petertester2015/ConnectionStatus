@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
@@ -19,16 +20,18 @@ import org.duckdns.nick2.connstatus.ui.main.SectionsPagerAdapter;
 public class MainActivity extends AppCompatActivity {
     private static final int REQID_LOC = 54321;
     private static final int REQID_PHONE = 54322;
-    private static String TAG = "main";
-    private ActivityMainBinding binding;
+    private static final int REQID_LOC2 = 54323;
+    private static final String TAG = "main";
+    public static MainActivity sCurr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        sCurr = this;
         MyLog.log(TAG, "onCreate");
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        org.duckdns.nick2.connstatus.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
@@ -53,9 +56,35 @@ public class MainActivity extends AppCompatActivity {
         checkPermissionsAndStartService();
     }
 
+    protected void onPause() {
+        super.onPause();
+        MyLog.log(TAG, "onPause");
+    }
+
+    protected void onStart() {
+        super.onStart();
+        MyLog.log(TAG, "onStart");
+    }
+
+    protected void onStop() {
+        super.onStop();
+        MyLog.log(TAG, "onStop");
+    }
+
+    protected void onDestroy() {
+        super.onDestroy();
+        MyLog.log(TAG, "onDestroy");
+    }
+
+    protected void onRestart() {
+        super.onRestart();
+        MyLog.log(TAG, "onRestart");
+    }
+
     private void checkPermissionsAndStartService() {
         boolean ok1 = false;
         boolean ok2 = false;
+        boolean ok3 = false;
         int permissionCheck1 = checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
         if (permissionCheck1 != PackageManager.PERMISSION_GRANTED) {
             MyLog.log(TAG, "Ask user for permission COARSE LOC");
@@ -72,12 +101,20 @@ public class MainActivity extends AppCompatActivity {
             MyLog.log(TAG, "Permission PHONE STATE has already been granted");
             ok2 = true;
         }
-        if (ok1 && ok2) {
+        int permissionCheck3 = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+        if (permissionCheck3 != PackageManager.PERMISSION_GRANTED) {
+            MyLog.log(TAG, "Ask user for permission FINE LOC");
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQID_LOC2);
+        } else {
+            MyLog.log(TAG, "Permission FINE LOC has already been granted");
+            ok3 = true;
+        }
+        if (ok1 && ok2 && ok3) {
             startService(new Intent(MainActivity.this, MyService.class));
         }
     }
 
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case REQID_LOC:
