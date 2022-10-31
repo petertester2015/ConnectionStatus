@@ -33,6 +33,11 @@ public class MyService extends Service {
     private static final String TAG = "service";
     private static MyListener sListener;
     private static MyBattery sBattery;
+    private static MyService sService;
+
+    public static MyService getCurrent() {
+        return sService;
+    }
 
     public IBinder onBind(Intent intent) {
         MyLog.log(TAG, "MyService.onBind: " + Intent.ACTION_SEND);
@@ -41,6 +46,7 @@ public class MyService extends Service {
 
     public void onCreate() {
         MyLog.log(TAG, "MyService.onCreate");
+        sService = this;
         if (sListener == null) {
             sListener = new MyListener();
         }
