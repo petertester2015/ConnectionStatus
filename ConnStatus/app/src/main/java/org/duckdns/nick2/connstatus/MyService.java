@@ -30,7 +30,7 @@ import androidx.core.app.ActivityCompat;
 import java.util.List;
 
 public class MyService extends Service {
-    private static final String TAG = "service";
+    private static final String TAG = Global.CAT_MYSERVICE;
     private static MyListener sListener;
     private static MyBattery sBattery;
     private static MyService sService;
@@ -75,7 +75,7 @@ public class MyService extends Service {
 }
 
 class MyListener extends PhoneStateListener {
-    private static final String TAG = "mylistener";
+    private static final String TAG = Global.CAT_PHONE_STATE;
     private MyService mService;
     private TelephonyManager mManager;
 
@@ -408,7 +408,7 @@ class MyListener extends PhoneStateListener {
 }
 
 class MyBattery extends BroadcastReceiver {
-    private static final String TAG = "myBattery";
+    private static final String TAG = Global.CAT_BATTERY;
 
     public MyBattery() {
         super();

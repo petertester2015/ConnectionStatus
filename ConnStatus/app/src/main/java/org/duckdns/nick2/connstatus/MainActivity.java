@@ -1,13 +1,18 @@
 package org.duckdns.nick2.connstatus;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -21,8 +26,20 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQID_LOC = 54321;
     private static final int REQID_PHONE = 54322;
     private static final int REQID_LOC2 = 54323;
-    private static final String TAG = "main";
+    private static final String TAG = Global.CAT_MAIN;
     public static MainActivity sCurr;
+    private static Object sLock = new Object();
+
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            String cat = intent.getStringExtra(Global.CATEGORY);
+            String message = intent.getStringExtra(Global.MESSAGE);
+            synchronized (sLock) {
+                // TODO: Add code here :)
+                Log.i(TAG, "cat=" + cat + " msg=" + message);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                mMessageReceiver, new IntentFilter(Global.BROADCAST));
     }
 
     protected void onResume() {
@@ -74,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         MyLog.log(TAG, "onDestroy");
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(
+                mMessageReceiver);
     }
 
     protected void onRestart() {
