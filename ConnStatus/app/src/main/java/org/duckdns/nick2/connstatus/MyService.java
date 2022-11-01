@@ -45,17 +45,20 @@ public class MyService extends Service {
     }
 
     public void onCreate() {
-        MyLog.log(TAG, "MyService.onCreate");
+        MyLog.log(TAG, "MyService.onCreate...");
         sService = this;
         if (sListener == null) {
+            MyLog.log(TAG, "MyService.onCreate1");
             sListener = new MyListener();
         }
         sListener.setService(this);
         if (sBattery == null) {
+            MyLog.log(TAG, "MyService.onCreate2");
             sBattery = new MyBattery();
             IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
             getApplicationContext().registerReceiver(sBattery, ifilter);
         }
+        MyLog.log(TAG, "MyService.onCreate.");
     }
 
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -64,13 +67,14 @@ public class MyService extends Service {
     }
 
     public void onDestroy() {
-        MyLog.log(TAG, "MyService.onDestroy");
+        MyLog.log(TAG, "MyService.onDestroy...");
         getApplicationContext().unregisterReceiver(sBattery);
         sBattery = null;
         if (sListener != null) {
             sListener.setService(null);
             sListener = null;
         }
+        MyLog.log(TAG, "MyService.onDestroy.");
     }
 }
 
@@ -81,11 +85,14 @@ class MyListener extends PhoneStateListener {
 
     public MyListener() {
         super();
+        MyLog.log(TAG, "MyListener()...");
         StationReader tmp = new StationReader();
         tmp.start();
+        MyLog.log(TAG, "MyListener().");
     }
 
     public void setService(MyService service) {
+        MyLog.log(TAG, "setService...");
         try {
             if (mManager != null) {
                 mManager.listen(this, PhoneStateListener.LISTEN_NONE);
@@ -101,6 +108,7 @@ class MyListener extends PhoneStateListener {
             MyLog.log(TAG, "Unable to listen to Telephony events: " + t);
             mManager = null;
         }
+        MyLog.log(TAG, "setService.");
     }
 
     public void onCallForwardingIndicatorChanged(boolean cfi) {
@@ -375,6 +383,8 @@ class MyListener extends PhoneStateListener {
     }
 
     class StationReader extends Thread {
+        private static final String TAG = Global.CAT_STATIONS;
+
         public void run() {
             while (true) {
                 SystemClock.sleep(5000);
@@ -383,6 +393,7 @@ class MyListener extends PhoneStateListener {
         }
 
         private void readStations() {
+            MyLog.log(TAG, "readStations...");
             try {
                 int count = 0;
                 if (mManager != null) {
@@ -391,18 +402,21 @@ class MyListener extends PhoneStateListener {
                         ci = null;
                         MyLog.log(TAG, "readStations missing permission");
                     } else {
+                        MyLog.log(TAG, "readStations getAllCellInfo()...");
                         ci = mManager.getAllCellInfo();
                     }
                     if (ci != null) {
+                        MyLog.log(TAG, "readStations iterate stations...");
                         for (CellInfo tmp : ci) {
                             count++;
-                            MyLog.log(TAG, "" + count + ".cell=" + getCellInfo(tmp));
+                            MyLog.log(TAG, "#" + count + " cell=" + getCellInfo(tmp));
                         }
                     }
                 }
             } catch (Throwable t) {
                 MyLog.log(TAG, "readStations:" + t);
             }
+            MyLog.log(TAG, "readStations.");
         }
     }
 }

@@ -9,8 +9,6 @@ public class MyLog {
     private final static String TAG = "ConnStat";
 
     public static void log(String tag, String message) {
-        //Log.i(TAG, tag + ":" + message);
-
         try {
             Intent i = new Intent(Global.BROADCAST);
             i.putExtra(Global.CATEGORY, tag);

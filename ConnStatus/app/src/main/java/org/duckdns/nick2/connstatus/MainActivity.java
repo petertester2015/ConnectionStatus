@@ -46,14 +46,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         sCurr = this;
-        MyLog.log(TAG, "onCreate");
+        MyLog.log(TAG, "onCreate...");
 
         org.duckdns.nick2.connstatus.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        MyLog.log(TAG, "onCreate1");
+
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = binding.viewPager;
         viewPager.setAdapter(sectionsPagerAdapter);
+
+        MyLog.log(TAG, "onCreate2");
+
         TabLayout tabs = binding.tabs;
         tabs.setupWithViewPager(viewPager);
         FloatingActionButton fab = binding.fab;
@@ -66,8 +71,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        MyLog.log(TAG, "onCreate3");
+
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 mMessageReceiver, new IntentFilter(Global.BROADCAST));
+
+        MyLog.log(TAG, "onCreate.");
     }
 
     protected void onResume() {
@@ -139,6 +148,15 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
+            case REQID_LOC2:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    MyLog.log(TAG, "Permission FINE LOC granted by user");
+                    checkPermissionsAndStartService();
+                } else {
+                    MyLog.log(TAG, "Permission FINE LOC not granted by user");
+                }
+                return;
             case REQID_LOC:
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

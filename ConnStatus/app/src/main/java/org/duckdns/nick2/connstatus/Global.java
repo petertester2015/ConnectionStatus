@@ -12,6 +12,7 @@ public class Global {
     public static final String CAT_PHONE_STATE = "phstate";
     public static final String CAT_MYSERVICE = "myservice";
     public static final String CAT_MAIN = "main";
+    public static final String CAT_STATIONS = "stationthread";
 
     private static SimpleDateFormat sdf1 = new SimpleDateFormat(
             "yyyyMMdd_HHmmss");
