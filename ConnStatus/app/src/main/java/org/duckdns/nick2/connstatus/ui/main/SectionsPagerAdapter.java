@@ -8,7 +8,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import org.duckdns.nick2.connstatus.BatteryFragment;
+import org.duckdns.nick2.connstatus.CellularFragment;
+import org.duckdns.nick2.connstatus.ClockFragment;
 import org.duckdns.nick2.connstatus.R;
+import org.duckdns.nick2.connstatus.SettingsFragment;
+import org.duckdns.nick2.connstatus.WifiFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -27,9 +32,20 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
-        return PlaceholderFragment.newInstance(position + 1);
+        switch (position) {
+            case 4:
+                return BatteryFragment.newInstance("", "");
+            case 3:
+                return CellularFragment.newInstance("", "");
+            case 2:
+                return WifiFragment.newInstance("", "");
+            case 1:
+                return ClockFragment.newInstance("", "");
+            case 0:
+                return SettingsFragment.newInstance("", "");
+            default:
+                return PlaceholderFragment.newInstance(position + 1);
+        }
     }
 
     @Nullable
