@@ -1,4 +1,4 @@
-package org.duckdns.nick2.connstatus.ui.main;
+package org.duckdns.nick2.connstatus;
 
 import android.content.Context;
 
@@ -7,15 +7,6 @@ import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-
-import org.duckdns.nick2.connstatus.BatteryFragment;
-import org.duckdns.nick2.connstatus.CellularFragment;
-import org.duckdns.nick2.connstatus.ClockFragment;
-import org.duckdns.nick2.connstatus.Global;
-import org.duckdns.nick2.connstatus.MyLog;
-import org.duckdns.nick2.connstatus.R;
-import org.duckdns.nick2.connstatus.SettingsFragment;
-import org.duckdns.nick2.connstatus.WifiFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -49,7 +40,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return SettingsFragment.newInstance("", "");
             default:
-                return PlaceholderFragment.newInstance(position + 1);
+                return null;
         }
     }
 

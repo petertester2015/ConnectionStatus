@@ -20,7 +20,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import org.duckdns.nick2.connstatus.databinding.ActivityMainBinding;
-import org.duckdns.nick2.connstatus.ui.main.SectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQID_LOC = 54321;
