@@ -62,7 +62,7 @@ public class CellularFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_cellular, container, false);
         ArrayAdapter<String> aa = new ArrayAdapter<String>(inflater.getContext(), R.layout.myline, R.id.text1, CellularData.getDataArray());
-        BatteryData.setAdapter(aa);
+        CellularData.setAdapter(aa);
         ListView lv = v.findViewById(R.id.celllist);
         lv.setAdapter(aa);
         aa.notifyDataSetChanged();

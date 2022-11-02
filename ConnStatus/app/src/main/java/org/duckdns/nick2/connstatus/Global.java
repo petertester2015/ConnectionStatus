@@ -17,6 +17,7 @@ public class Global {
     public static final String CAT_VIEWMODEL = "viewmodel";
     public static final String BATTDATA = "battdata";
     public static final String CELLDATA = "celldata";
+    public static final String SETTINGSDATA = "settingdata";
 
     private static SimpleDateFormat sdf1 = new SimpleDateFormat(
             "yyyyMMdd_HHmmss");

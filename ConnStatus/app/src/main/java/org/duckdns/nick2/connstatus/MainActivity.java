@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -36,11 +35,12 @@ public class MainActivity extends AppCompatActivity {
             synchronized (sLock) {
                 if (Global.CAT_BATTERY.equals(cat)) {
                     BatteryData.addData(message);
-                }
-                if (Global.CAT_STATIONS.equals(cat) || Global.CAT_PHONE_STATE.equals(cat)) {
+                } else if (Global.CAT_STATIONS.equals(cat) || Global.CAT_PHONE_STATE.equals(cat)) {
                     CellularData.addData(message);
+                } else {
+                    SettingsData.addData("cat=" + cat + " msg=" + message);
                 }
-                Log.i(TAG, "cat=" + cat + " msg=" + message);
+                //Log.i(TAG, "cat=" + cat + " msg=" + message);
             }
         }
     };

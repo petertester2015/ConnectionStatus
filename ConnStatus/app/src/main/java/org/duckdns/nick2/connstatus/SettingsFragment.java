@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,7 +60,15 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_settings, container, false);
+        ArrayAdapter<String> aa = new ArrayAdapter(inflater.getContext(), R.layout.myline, R.id.text1, SettingsData.getDataArray());
+        SettingsData.setAdapter(aa);
+        ListView lv = v.findViewById(R.id.settingslist);
+        lv.setAdapter(aa);
+        aa.notifyDataSetChanged();
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        return v;
+
     }
 }

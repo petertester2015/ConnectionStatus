@@ -1,16 +1,17 @@
 package org.duckdns.nick2.connstatus;
 
 import android.widget.ArrayAdapter;
+
 import java.util.ArrayList;
 
-public class CellularData {
-    private final static String TAG = Global.CELLDATA;
+public class SettingsData {
+    private final static String TAG = Global.SETTINGSDATA;
     private final static Object sLock = new Object();
-    private final static CellularData sInstance = new CellularData();
+    private final static SettingsData sInstance = new SettingsData();
     private final ArrayList<String> mArrayList = new ArrayList<>();
     private ArrayAdapter<String> mArrayAdapter;
 
-    private CellularData() {
+    private SettingsData() {
     }
 
     public static void addData(String tmp) {
@@ -37,4 +38,3 @@ public class CellularData {
         sInstance.mArrayAdapter = aa;
     }
 }
-
