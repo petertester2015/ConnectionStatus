@@ -60,7 +60,7 @@ public class BatteryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_battery, container, false);
-        ArrayAdapter<String> aa = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, android.R.id.text1, BatteryData.getArray());
+        ArrayAdapter<String> aa = new ArrayAdapter<String>(inflater.getContext(), R.layout.myline, R.id.text1, BatteryData.getArray());
         BatteryData.setAdapter(aa);
         ListView lv = v.findViewById(R.id.battlist);
         lv.setAdapter(aa);

@@ -12,7 +12,7 @@ public class MyLog {
         try {
             Intent i = new Intent(Global.BROADCAST);
             i.putExtra(Global.CATEGORY, tag);
-            i.putExtra(Global.MESSAGE, message);
+            i.putExtra(Global.MESSAGE, Global.getTimeSec() + ": " + message);
             LocalBroadcastManager.getInstance(MyService.getCurrent()).sendBroadcast(i);
         } catch (Throwable t) {
             Log.i(TAG, "LocalBroadcast: " + t);

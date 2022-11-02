@@ -447,7 +447,7 @@ class MyBattery extends BroadcastReceiver {
                 default:
                     s = "Unknown";
             }
-            MyLog.log(TAG, "Battery: status=" + s + " level=" + level);
+            MyLog.log(TAG, "status=" + s + " level=" + level);
         } catch (Throwable t) {
             MyLog.log(TAG, "MyBattery: " + t);
         }

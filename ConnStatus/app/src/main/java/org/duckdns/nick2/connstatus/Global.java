@@ -21,6 +21,8 @@ public class Global {
             "yyyyMMdd_HHmmss");
     private static SimpleDateFormat sdf2 = new SimpleDateFormat(
             "HHmmss.SSS");
+    private static SimpleDateFormat sdf3 = new SimpleDateFormat(
+            "HHmmss");
 
     public static String getTimeDate() {
         return sdf1.format(new Date());
@@ -28,5 +30,9 @@ public class Global {
 
     public static String getTimeMillis() {
         return sdf2.format(new Date());
+    }
+
+    public static String getTimeSec() {
+        return sdf3.format(new Date());
     }
 }
