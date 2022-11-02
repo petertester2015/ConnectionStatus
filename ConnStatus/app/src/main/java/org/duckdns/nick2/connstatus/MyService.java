@@ -100,7 +100,7 @@ class MyListener extends PhoneStateListener {
             }
             mService = service;
             if (service != null) {
-                mManager = (TelephonyManager) MainActivity.sCurr.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+                mManager = (TelephonyManager) MyService.getCurrent().getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
                 mManager.listen(this, LISTEN_CELL_INFO | LISTEN_CELL_LOCATION | LISTEN_SERVICE_STATE | LISTEN_SIGNAL_STRENGTHS);
                 MyLog.log(TAG, "New listener setup");
             }
@@ -200,7 +200,7 @@ class MyListener extends PhoneStateListener {
         try {
             String type;
             if (mManager != null) {
-                if (ActivityCompat.checkSelfPermission(MainActivity.sCurr.getApplicationContext(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.checkSelfPermission(MyService.getCurrent().getApplicationContext(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
                     type = "NoPermission";
                 } else {
                     type = getNetworkType(mManager.getNetworkType());

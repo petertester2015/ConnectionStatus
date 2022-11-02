@@ -9,6 +9,8 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQID_PHONE = 54322;
     private static final int REQID_LOC2 = 54323;
     private static final String TAG = Global.CAT_MAIN;
-    public static MainActivity sCurr;
+    //public static MainActivity sCurr;
     private static Object sLock = new Object();
 
     private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             String cat = intent.getStringExtra(Global.CATEGORY);
             String message = intent.getStringExtra(Global.MESSAGE);
             synchronized (sLock) {
-                if (Global.CAT_BATTERY.equals(cat)){
+                if (Global.CAT_BATTERY.equals(cat)) {
                     BatteryData.addData(message);
                 }
                 Log.i(TAG, "cat=" + cat + " msg=" + message);
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        sCurr = this;
+        //sCurr = this;
         MyLog.log(TAG, "onCreate...");
 
         org.duckdns.nick2.connstatus.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -82,8 +84,9 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
-        MyLog.log(TAG, "onResume");
+        MyLog.log(TAG, "onResume...");
         checkPermissionsAndStartService();
+        MyLog.log(TAG, "onResume.");
     }
 
     protected void onPause() {
