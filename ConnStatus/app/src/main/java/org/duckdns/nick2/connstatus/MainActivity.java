@@ -35,7 +35,9 @@ public class MainActivity extends AppCompatActivity {
             String cat = intent.getStringExtra(Global.CATEGORY);
             String message = intent.getStringExtra(Global.MESSAGE);
             synchronized (sLock) {
-                // TODO: Add code here :)
+                if (Global.CAT_BATTERY.equals(cat)){
+                    BatteryData.addData(message);
+                }
                 Log.i(TAG, "cat=" + cat + " msg=" + message);
             }
         }

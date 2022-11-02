@@ -13,6 +13,8 @@ public class Global {
     public static final String CAT_MYSERVICE = "myservice";
     public static final String CAT_MAIN = "main";
     public static final String CAT_STATIONS = "stationthread";
+    public static final String CAT_PAG_ADAPTER = "pageadapt";
+    public static final String CAT_VIEWMODEL = "viewmodel";
 
     private static SimpleDateFormat sdf1 = new SimpleDateFormat(
             "yyyyMMdd_HHmmss");

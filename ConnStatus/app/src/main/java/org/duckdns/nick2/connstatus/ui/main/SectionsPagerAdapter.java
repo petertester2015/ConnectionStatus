@@ -11,6 +11,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import org.duckdns.nick2.connstatus.BatteryFragment;
 import org.duckdns.nick2.connstatus.CellularFragment;
 import org.duckdns.nick2.connstatus.ClockFragment;
+import org.duckdns.nick2.connstatus.Global;
+import org.duckdns.nick2.connstatus.MyLog;
 import org.duckdns.nick2.connstatus.R;
 import org.duckdns.nick2.connstatus.SettingsFragment;
 import org.duckdns.nick2.connstatus.WifiFragment;
@@ -20,6 +22,7 @@ import org.duckdns.nick2.connstatus.WifiFragment;
  * one of the sections/tabs/pages.
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    private final static String TAG = Global.CAT_PAG_ADAPTER;
 
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.tab_text_settings, R.string.tab_text_clock, R.string.tab_text_wifi, R.string.tab_text_cell, R.string.tab_text_battery};
@@ -28,10 +31,12 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
+        MyLog.log(TAG, "SectionPagerAdapter()");
     }
 
     @Override
     public Fragment getItem(int position) {
+        MyLog.log(TAG, "getItem " + position);
         switch (position) {
             case 4:
                 return BatteryFragment.newInstance("", "");
@@ -51,11 +56,13 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
+        MyLog.log(TAG, "getPageTitle " + position);
         return mContext.getResources().getString(TAB_TITLES[position]);
     }
 
     @Override
     public int getCount() {
+        MyLog.log(TAG, "getCount " + TAB_TITLES.length);
         return TAB_TITLES.length;
     }
 }
