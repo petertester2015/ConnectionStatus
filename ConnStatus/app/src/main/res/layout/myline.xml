@@ -3,6 +3,4 @@
     android:id="@+id/text1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:textSize="15sp">
-
-</TextView>
+    android:textSize="15sp"></TextView>

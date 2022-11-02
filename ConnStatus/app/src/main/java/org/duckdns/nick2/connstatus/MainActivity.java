@@ -9,8 +9,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
             synchronized (sLock) {
                 if (Global.CAT_BATTERY.equals(cat)) {
                     BatteryData.addData(message);
+                }
+                if (Global.CAT_STATIONS.equals(cat) || Global.CAT_PHONE_STATE.equals(cat)) {
+                    CellularData.addData(message);
                 }
                 Log.i(TAG, "cat=" + cat + " msg=" + message);
             }

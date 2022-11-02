@@ -4,15 +4,15 @@ import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
-public class BatteryData {
-    private final static String TAG = Global.BATTDATA;
+public class CellularData {
+    private final static String TAG = Global.CELLDATA;
     private final static Object sLock = new Object();
-    private final static BatteryData sInstance = new BatteryData();
+    private final static CellularData sInstance = new CellularData();
     private final ArrayList<String> mArrayList = new ArrayList<>();
     private ArrayAdapter<String> mArrayAdapter;
 
-    public BatteryData() {
-        MyLog.log(TAG, "BatteryData()");
+    public CellularData() {
+        MyLog.log(TAG, "CellularData()");
     }
 
     public static void addData(String tmp) {
@@ -42,3 +42,4 @@ public class BatteryData {
         sInstance.mArrayAdapter = aa;
     }
 }
+
