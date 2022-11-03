@@ -22,6 +22,8 @@ public abstract class ServicePlugin extends Thread {
 
     protected abstract void loopSetup();
 
+    protected abstract long getTimeout();
+
     public void endLoop() {
         mCont = false;
         doNotify();
@@ -40,7 +42,7 @@ public abstract class ServicePlugin extends Thread {
             synchronized (mLock) {
                 try {
                     getStatus();
-                    mLock.wait(10000);
+                    mLock.wait(getTimeout());
                 } catch (InterruptedException e) {
                     MyLog.log(getTag(), "wait: " + e);
                 }

@@ -55,6 +55,11 @@ public class MyWifi extends ServicePlugin {
         mWifiMgr = (WifiManager) MyService.getCurrent().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
     }
 
+    @Override
+    protected long getTimeout() {
+        return 10000;
+    }
+
     protected void setup() {
         ConnectivityManager cm;
         cm = (ConnectivityManager) MyService.getCurrent().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);

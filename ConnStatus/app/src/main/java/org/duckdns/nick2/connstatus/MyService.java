@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.os.SystemClock;
@@ -26,6 +25,7 @@ import android.telephony.TelephonyManager;
 import androidx.core.app.ActivityCompat;
 
 import org.duckdns.nick2.connstatus.plugins.MyBattery;
+import org.duckdns.nick2.connstatus.plugins.MyClock;
 import org.duckdns.nick2.connstatus.plugins.MyWifi;
 
 import java.util.List;
@@ -422,25 +422,5 @@ class MyListener extends PhoneStateListener {
             }
             MyLog.log(TAG, "readStations.");
         }
-    }
-}
-
-class MyClock extends Thread {
-    private final static String TAG = Global.CAT_CLOCK;
-    private boolean mCont = true;
-
-    public MyClock() {
-        start();
-    }
-
-    public void run() {
-        while (mCont) {
-            SystemClock.sleep(1000);
-            MyLog.log(TAG, "clk=" + Global.getTimeDate());
-        }
-    }
-
-    public void endLoop() {
-        mCont = false;
     }
 }

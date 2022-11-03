@@ -64,4 +64,9 @@ public class MyBattery extends ServicePlugin {
         IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         getService().getApplicationContext().registerReceiver(mRec, iFilter);
     }
+
+    @Override
+    protected long getTimeout() {
+        return 10000;
+    }
 }
