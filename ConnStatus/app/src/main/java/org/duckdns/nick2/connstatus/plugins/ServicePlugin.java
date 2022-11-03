@@ -8,6 +8,7 @@ public abstract class ServicePlugin extends Thread {
     private boolean mCont = true;
 
     public ServicePlugin() {
+        super();
         start();
         setup();
     }
