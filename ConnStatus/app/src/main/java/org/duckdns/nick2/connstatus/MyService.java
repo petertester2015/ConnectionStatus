@@ -67,7 +67,7 @@ public class MyService extends Service {
             getApplicationContext().registerReceiver(sBattery, ifilter);
         }
         if (sWifi == null) {
-            sWifi = new MyWifi(this.getApplicationContext());
+            sWifi = new MyWifi();
         }
         if (sClk == null) {
             sClk = new MyClock();
@@ -469,19 +469,17 @@ class MyWifi extends Thread {
     private final static String TAG = Global.CAT_WIFI;
     private final static String TAG2 = Global.CAT_WIFI_CM;
     private final Object mLock = new Object();
-    private final Context mContext;
     private boolean mCont = true;
     private ConnectivityManager.NetworkCallback mCallb;
 
-    public MyWifi(Context c) {
-        mContext = c;
+    public MyWifi() {
         start();
         setupConnectivityManager();
     }
 
     private void setupConnectivityManager() {
         ConnectivityManager cm;
-        cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        cm = (ConnectivityManager) MyService.getCurrent().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         mCallb = new ConnectivityManager.NetworkCallback() {
             public void onAvailable(Network network) {
                 MyLog.log(TAG, TAG2 + " onAvailable: " + network.toString());
@@ -523,7 +521,7 @@ class MyWifi extends Thread {
     }
 
     public void run() {
-        WifiManager wm = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
+        WifiManager wm = (WifiManager) MyService.getCurrent().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         while (mCont) {
             synchronized (mLock) {
                 try {
@@ -534,6 +532,9 @@ class MyWifi extends Thread {
                 }
             }
         }
+        ConnectivityManager cm;
+        cm = (ConnectivityManager) MyService.getCurrent().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        cm.unregisterNetworkCallback(mCallb);
     }
 
     public void endLoop() {

@@ -61,7 +61,7 @@ public class WifiFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_wifi, container, false);
-        ArrayAdapter<String> aa = new ArrayAdapter(inflater.getContext(), R.layout.myline, R.id.text1, WifiData.getDataArray());
+        ArrayAdapter<String> aa = new ArrayAdapter<>(inflater.getContext(), R.layout.myline, R.id.text1, WifiData.getDataArray());
         WifiData.setAdapter(aa);
         ListView lv = v.findViewById(R.id.wifilist);
         lv.setAdapter(aa);

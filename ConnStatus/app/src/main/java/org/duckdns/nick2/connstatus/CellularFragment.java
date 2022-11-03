@@ -61,7 +61,7 @@ public class CellularFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_cellular, container, false);
-        ArrayAdapter<String> aa = new ArrayAdapter<String>(inflater.getContext(), R.layout.myline, R.id.text1, CellularData.getDataArray());
+        ArrayAdapter<String> aa = new ArrayAdapter<>(inflater.getContext(), R.layout.myline, R.id.text1, CellularData.getDataArray());
         CellularData.setAdapter(aa);
         ListView lv = v.findViewById(R.id.celllist);
         lv.setAdapter(aa);

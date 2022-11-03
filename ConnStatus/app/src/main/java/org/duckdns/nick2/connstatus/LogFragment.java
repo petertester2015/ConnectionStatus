@@ -61,7 +61,7 @@ public class LogFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_log, container, false);
-        ArrayAdapter<String> aa = new ArrayAdapter(inflater.getContext(), R.layout.myline, R.id.text1, LogData.getDataArray());
+        ArrayAdapter<String> aa = new ArrayAdapter<>(inflater.getContext(), R.layout.myline, R.id.text1, LogData.getDataArray());
         LogData.setAdapter(aa);
         ListView lv = v.findViewById(R.id.loglist);
         lv.setAdapter(aa);

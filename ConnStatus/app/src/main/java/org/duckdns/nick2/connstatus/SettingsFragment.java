@@ -61,7 +61,7 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_settings, container, false);
-        ArrayAdapter<String> aa = new ArrayAdapter(inflater.getContext(), R.layout.myline, R.id.text1, SettingsData.getDataArray());
+        ArrayAdapter<String> aa = new ArrayAdapter<>(inflater.getContext(), R.layout.myline, R.id.text1, SettingsData.getDataArray());
         SettingsData.setAdapter(aa);
         ListView lv = v.findViewById(R.id.settingslist);
         lv.setAdapter(aa);
