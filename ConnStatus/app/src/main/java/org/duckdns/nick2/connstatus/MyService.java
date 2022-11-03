@@ -513,6 +513,7 @@ class MyWifi extends Thread {
                 doNotify();
             }
         };
+        cm.registerDefaultNetworkCallback(mCallb);
     }
 
     private void doNotify() {
@@ -526,7 +527,7 @@ class MyWifi extends Thread {
         while (mCont) {
             synchronized (mLock) {
                 try {
-                    mLock.wait(30000);
+                    mLock.wait(10000);
                     getWifiStatus(wm);
                 } catch (InterruptedException e) {
                     MyLog.log(TAG, "wait: " + e);
