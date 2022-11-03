@@ -7,12 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.LinkProperties;
-import android.net.Network;
-import android.net.NetworkCapabilities;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.IBinder;
 import android.os.SystemClock;
@@ -32,6 +26,8 @@ import android.telephony.SignalStrength;
 import android.telephony.TelephonyManager;
 
 import androidx.core.app.ActivityCompat;
+
+import org.duckdns.nick2.connstatus.plugins.MyWifi;
 
 import java.util.List;
 
@@ -463,112 +459,6 @@ class MyBattery extends BroadcastReceiver {
             MyLog.log(TAG, "MyBattery: " + t);
         }
     }
-}
-
-class MyWifi extends Thread {
-    private final static String TAG = Global.CAT_WIFI;
-    private final static String TAG2 = Global.CAT_WIFI_CM;
-    private final Object mLock = new Object();
-    private boolean mCont = true;
-    private ConnectivityManager.NetworkCallback mCallb;
-
-    public MyWifi() {
-        start();
-        setupConnectivityManager();
-    }
-
-    private void setupConnectivityManager() {
-        ConnectivityManager cm;
-        cm = (ConnectivityManager) MyService.getCurrent().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        mCallb = new ConnectivityManager.NetworkCallback() {
-            public void onAvailable(Network network) {
-                MyLog.log(TAG, TAG2 + " onAvailable: " + network.toString());
-                doNotify();
-            }
-
-            public void onCapabilitiesChanged(Network network, NetworkCapabilities networkCapabilities) {
-                MyLog.log(TAG, TAG2 + " onCapabilitiesChanged: " + network.toString());
-                doNotify();
-            }
-
-            public void onLinkPropertiesChanged(Network network, LinkProperties linkProperties) {
-                MyLog.log(TAG, TAG2 + " onLinkPropertiesChanged: " + network.toString());
-                doNotify();
-            }
-
-            public void onLosing(Network network, int maxMsToLive) {
-                MyLog.log(TAG, TAG2 + " onLosing: " + network.toString());
-                doNotify();
-            }
-
-            public void onLost(Network network) {
-                MyLog.log(TAG, TAG2 + " onLost: " + network.toString());
-                doNotify();
-            }
-
-            public void onUnavailable() {
-                MyLog.log(TAG, TAG2 + " onUnavailable");
-                doNotify();
-            }
-        };
-        cm.registerDefaultNetworkCallback(mCallb);
-    }
-
-    private void doNotify() {
-        synchronized (mLock) {
-            mLock.notifyAll();
-        }
-    }
-
-    public void run() {
-        WifiManager wm = (WifiManager) MyService.getCurrent().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        while (mCont) {
-            synchronized (mLock) {
-                try {
-                    mLock.wait(10000);
-                    getWifiStatus(wm);
-                } catch (InterruptedException e) {
-                    MyLog.log(TAG, "wait: " + e);
-                }
-            }
-        }
-        ConnectivityManager cm;
-        cm = (ConnectivityManager) MyService.getCurrent().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        cm.unregisterNetworkCallback(mCallb);
-    }
-
-    public void endLoop() {
-        mCont = false;
-    }
-
-    private void getWifiStatus(WifiManager wm) {
-        try {
-            WifiInfo wi = wm.getConnectionInfo();
-            if (wi != null) {
-                MyLog.log(TAG, "ssid=" + wi.getSSID());
-                MyLog.log(TAG, "rssi=" + wi.getRssi());
-                MyLog.log(TAG, "freq=" + wi.getFrequency());
-                MyLog.log(TAG, "speed=" + wi.getLinkSpeed());
-                MyLog.log(TAG, "ip=" + getIPaddr(wi.getIpAddress()));
-            } else {
-                MyLog.log(TAG, "not connected");
-            }
-        } catch (Throwable t) {
-            MyLog.log(TAG, "getStatus: " + t);
-        }
-    }
-
-    private String getIPaddr(int ipAddress) {
-        int a = ipAddress & 255;
-        ipAddress >>= 8;
-        int b = ipAddress & 255;
-        ipAddress >>= 8;
-        int c = ipAddress & 255;
-        ipAddress >>= 8;
-        int d = ipAddress & 255;
-        return a + "." + b + "." + c + "." + d;
-    }
-
 }
 
 class MyClock extends Thread {
