@@ -2,12 +2,10 @@ package org.duckdns.nick2.connstatus;
 
 import android.Manifest;
 import android.app.Service;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.os.BatteryManager;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.telephony.CellIdentityCdma;
@@ -27,6 +25,7 @@ import android.telephony.TelephonyManager;
 
 import androidx.core.app.ActivityCompat;
 
+import org.duckdns.nick2.connstatus.plugins.MyBattery;
 import org.duckdns.nick2.connstatus.plugins.MyWifi;
 
 import java.util.List;
@@ -56,11 +55,9 @@ public class MyService extends Service {
             sListener = new MyListener();
         }
         sListener.setService(this);
+
         if (sBattery == null) {
-            MyLog.log(TAG, "MyService.onCreate2");
             sBattery = new MyBattery();
-            IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-            getApplicationContext().registerReceiver(sBattery, ifilter);
         }
         if (sWifi == null) {
             sWifi = new MyWifi();
@@ -79,7 +76,7 @@ public class MyService extends Service {
     public void onDestroy() {
         MyLog.log(TAG, "MyService.onDestroy...");
         if (sBattery != null) {
-            getApplicationContext().unregisterReceiver(sBattery);
+            sBattery.endLoop();
             sBattery = null;
         }
         if (sListener != null) {
@@ -424,39 +421,6 @@ class MyListener extends PhoneStateListener {
                 MyLog.log(TAG, "readStations:" + t);
             }
             MyLog.log(TAG, "readStations.");
-        }
-    }
-}
-
-class MyBattery extends BroadcastReceiver {
-    private static final String TAG = Global.CAT_BATTERY;
-
-    public MyBattery() {
-        super();
-        MyLog.log(TAG, "MyBattery listener instance created");
-    }
-
-    public void onReceive(Context context, Intent intent) {
-        try {
-            int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-            int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-            String s;
-            switch (status) {
-                case BatteryManager.BATTERY_STATUS_CHARGING:
-                    s = "Charging";
-                    break;
-                case BatteryManager.BATTERY_STATUS_DISCHARGING:
-                    s = "Discharging";
-                    break;
-                case BatteryManager.BATTERY_STATUS_FULL:
-                    s = "Full";
-                    break;
-                default:
-                    s = "Unknown";
-            }
-            MyLog.log(TAG, "status=" + s + " level=" + level);
-        } catch (Throwable t) {
-            MyLog.log(TAG, "MyBattery: " + t);
         }
     }
 }

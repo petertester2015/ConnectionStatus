@@ -24,6 +24,7 @@ public abstract class ServicePlugin extends Thread {
 
     public void endLoop() {
         mCont = false;
+        doNotify();
     }
 
     @SuppressWarnings("unused")
@@ -38,8 +39,8 @@ public abstract class ServicePlugin extends Thread {
         while (mCont) {
             synchronized (mLock) {
                 try {
-                    mLock.wait(10000);
                     getStatus();
+                    mLock.wait(10000);
                 } catch (InterruptedException e) {
                     MyLog.log(getTag(), "wait: " + e);
                 }
