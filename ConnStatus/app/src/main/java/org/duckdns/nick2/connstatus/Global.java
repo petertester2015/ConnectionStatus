@@ -14,17 +14,15 @@ public class Global {
     public static final String CAT_MAIN = "main";
     public static final String CAT_STATIONS = "stationthread";
     public static final String CAT_PAG_ADAPTER = "pageadapt";
-    public static final String CAT_VIEWMODEL = "viewmodel";
     public static final String BATTDATA = "battdata";
     public static final String CELLDATA = "celldata";
     public static final String SETTINGSDATA = "settingdata";
+    public static final String WIFIDATA = "wifidata";
+    public static final String CAT_WIFI = "wifi";
 
-    private static SimpleDateFormat sdf1 = new SimpleDateFormat(
-            "yyyyMMdd_HHmmss");
-    private static SimpleDateFormat sdf2 = new SimpleDateFormat(
-            "HHmmss.SSS");
-    private static SimpleDateFormat sdf3 = new SimpleDateFormat(
-            "HHmmss");
+    private static final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMdd_HHmmss");
+    private static final SimpleDateFormat sdf2 = new SimpleDateFormat("HHmmss.SSS");
+    private static final SimpleDateFormat sdf3 = new SimpleDateFormat("HHmmss");
 
     public static String getTimeDate() {
         return sdf1.format(new Date());

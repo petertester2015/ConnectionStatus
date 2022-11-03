@@ -25,10 +25,9 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQID_PHONE = 54322;
     private static final int REQID_LOC2 = 54323;
     private static final String TAG = Global.CAT_MAIN;
-    //public static MainActivity sCurr;
-    private static Object sLock = new Object();
+    private static final Object sLock = new Object();
 
-    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String cat = intent.getStringExtra(Global.CATEGORY);
             String message = intent.getStringExtra(Global.MESSAGE);
@@ -37,10 +36,11 @@ public class MainActivity extends AppCompatActivity {
                     BatteryData.addData(message);
                 } else if (Global.CAT_STATIONS.equals(cat) || Global.CAT_PHONE_STATE.equals(cat)) {
                     CellularData.addData(message);
+                } else if (Global.CAT_WIFI.equals(cat)) {
+                    WifiData.addData(message);
                 } else {
                     SettingsData.addData("cat=" + cat + " msg=" + message);
                 }
-                //Log.i(TAG, "cat=" + cat + " msg=" + message);
             }
         }
     };
@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //sCurr = this;
         MyLog.log(TAG, "onCreate...");
 
         org.duckdns.nick2.connstatus.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -70,15 +69,13 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
 
         MyLog.log(TAG, "onCreate3");
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(
-                mMessageReceiver, new IntentFilter(Global.BROADCAST));
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, new IntentFilter(Global.BROADCAST));
 
         MyLog.log(TAG, "onCreate.");
     }
@@ -108,8 +105,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         MyLog.log(TAG, "onDestroy");
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(
-                mMessageReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
     }
 
     protected void onRestart() {
@@ -154,8 +150,7 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case REQID_LOC2:
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     MyLog.log(TAG, "Permission FINE LOC granted by user");
                     checkPermissionsAndStartService();
                 } else {
@@ -163,8 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return;
             case REQID_LOC:
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     MyLog.log(TAG, "Permission COARSE LOC granted by user");
                     checkPermissionsAndStartService();
                 } else {
@@ -172,8 +166,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return;
             case REQID_PHONE:
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     MyLog.log(TAG, "Permission PHONE STATE granted by user");
                     checkPermissionsAndStartService();
                 } else {

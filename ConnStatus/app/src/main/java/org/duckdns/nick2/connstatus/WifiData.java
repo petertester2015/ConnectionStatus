@@ -3,14 +3,14 @@ package org.duckdns.nick2.connstatus;
 import android.widget.ArrayAdapter;
 import java.util.ArrayList;
 
-public class BatteryData {
-    private final static String TAG = Global.BATTDATA;
+public class WifiData {
+    private final static String TAG = Global.WIFIDATA;
     private final static Object sLock = new Object();
-    private final static BatteryData sInstance = new BatteryData();
+    private final static WifiData sInstance = new WifiData();
     private final ArrayList<String> mArrayList = new ArrayList<>();
     private ArrayAdapter<String> mArrayAdapter;
 
-    private BatteryData() {
+    private WifiData() {
     }
 
     public static void addData(String tmp) {

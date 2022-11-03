@@ -34,6 +34,7 @@ public class MyService extends Service {
     private static MyListener sListener;
     private static MyBattery sBattery;
     private static MyService sService;
+    private static MyWifi sWifi;
 
     public static MyService getCurrent() {
         return sService;
@@ -57,6 +58,9 @@ public class MyService extends Service {
             sBattery = new MyBattery();
             IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
             getApplicationContext().registerReceiver(sBattery, ifilter);
+        }
+        if (sWifi == null){
+            sWifi = new MyWifi();
         }
         MyLog.log(TAG, "MyService.onCreate.");
     }
@@ -452,4 +456,8 @@ class MyBattery extends BroadcastReceiver {
             MyLog.log(TAG, "MyBattery: " + t);
         }
     }
+}
+
+class MyWifi{
+
 }
