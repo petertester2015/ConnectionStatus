@@ -237,6 +237,8 @@ class MyListener extends PhoneStateListener {
                 return "HSPA";
             case TelephonyManager.NETWORK_TYPE_UMTS:
                 return "UMTS";
+            case TelephonyManager.NETWORK_TYPE_NR:
+                return "NR";
             case TelephonyManager.NETWORK_TYPE_UNKNOWN:
                 return "Unknown";
             default:
