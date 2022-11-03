@@ -36,7 +36,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case 2:
                 return WifiFragment.newInstance("", "");
             case 1:
-                return ClockFragment.newInstance("", "");
+                return LogFragment.newInstance("", "");
             case 0:
                 return SettingsFragment.newInstance("", "");
             default:

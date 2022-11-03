@@ -7,6 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.LinkProperties;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.IBinder;
 import android.os.SystemClock;
@@ -35,6 +41,7 @@ public class MyService extends Service {
     private static MyBattery sBattery;
     private static MyService sService;
     private static MyWifi sWifi;
+    private static MyClock sClk;
 
     public static MyService getCurrent() {
         return sService;
@@ -59,8 +66,11 @@ public class MyService extends Service {
             IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
             getApplicationContext().registerReceiver(sBattery, ifilter);
         }
-        if (sWifi == null){
-            sWifi = new MyWifi();
+        if (sWifi == null) {
+            sWifi = new MyWifi(this.getApplicationContext());
+        }
+        if (sClk == null) {
+            sClk = new MyClock();
         }
         MyLog.log(TAG, "MyService.onCreate.");
     }
@@ -72,11 +82,21 @@ public class MyService extends Service {
 
     public void onDestroy() {
         MyLog.log(TAG, "MyService.onDestroy...");
-        getApplicationContext().unregisterReceiver(sBattery);
-        sBattery = null;
+        if (sBattery != null) {
+            getApplicationContext().unregisterReceiver(sBattery);
+            sBattery = null;
+        }
         if (sListener != null) {
             sListener.setService(null);
             sListener = null;
+        }
+        if (sClk != null) {
+            sClk.endLoop();
+            sClk = null;
+        }
+        if (sWifi != null) {
+            sWifi.endLoop();
+            sWifi = null;
         }
         MyLog.log(TAG, "MyService.onDestroy.");
     }
@@ -209,12 +229,7 @@ class MyListener extends PhoneStateListener {
                 } else {
                     type = getNetworkType(mManager.getNetworkType());
                 }
-                MyLog.log(TAG, ""
-                        + "sig=" + signalStrength.getLevel()
-                        + " type=" + type
-                        + " net=" + mManager.getNetworkCountryIso() + "." + mManager.getNetworkOperatorName()
-                        + " sim=" + mManager.getSimCountryIso() + "." + mManager.getSimOperatorName()
-                );
+                MyLog.log(TAG, "" + "sig=" + signalStrength.getLevel() + " type=" + type + " net=" + mManager.getNetworkCountryIso() + "." + mManager.getNetworkOperatorName() + " sim=" + mManager.getSimCountryIso() + "." + mManager.getSimOperatorName());
             }
         } catch (Throwable t) {
             MyLog.log(TAG, "onSignalStrengthsChanged: " + t);
@@ -316,71 +331,61 @@ class MyListener extends PhoneStateListener {
 
     private int getLac(CellIdentityWcdma ci) {
         int tmp = ci.getLac();
-        if (tmp > 1000000000 || tmp < 0)
-            tmp = -1;
+        if (tmp > 1000000000 || tmp < 0) tmp = -1;
         return tmp;
     }
 
     private int getLac(CellIdentityGsm ci) {
         int tmp = ci.getLac();
-        if (tmp > 1000000000 || tmp < 0)
-            tmp = -1;
+        if (tmp > 1000000000 || tmp < 0) tmp = -1;
         return tmp;
     }
 
     private int getCid(CellIdentityLte ci) {
         int tmp = ci.getCi();
-        if (tmp > 1000000000 || tmp < 0)
-            tmp = -1;
+        if (tmp > 1000000000 || tmp < 0) tmp = -1;
         return tmp;
     }
 
     private int getCid(CellIdentityGsm ci) {
         int tmp = ci.getCid();
-        if (tmp > 1000000000 || tmp < 0)
-            tmp = -1;
+        if (tmp > 1000000000 || tmp < 0) tmp = -1;
         return tmp;
     }
 
     private int getMnc(CellIdentityGsm ci) {
         int tmp = ci.getMnc();
-        if (tmp > 100 || tmp < 0)
-            tmp = -1;
+        if (tmp > 100 || tmp < 0) tmp = -1;
         return tmp;
     }
 
     private int getMcc(CellIdentityGsm ci) {
         int tmp = ci.getMcc();
-        if (tmp > 1000000000 || tmp < 0)
-            tmp = -1;
+        if (tmp > 1000000000 || tmp < 0) tmp = -1;
         return tmp;
     }
 
     private int getMnc(CellIdentityWcdma ci) {
         int tmp = ci.getMnc();
-        if (tmp > 100 || tmp < 0)
-            tmp = -1;
+        if (tmp > 100 || tmp < 0) tmp = -1;
         return tmp;
     }
 
     private int getMcc(CellIdentityWcdma ci) {
         int tmp = ci.getMcc();
-        if (tmp > 1000000000 || tmp < 0)
-            tmp = -1;
+        if (tmp > 1000000000 || tmp < 0) tmp = -1;
         return tmp;
     }
 
     private int getMnc(CellIdentityLte ci) {
         int tmp = ci.getMnc();
-        if (tmp > 100 || tmp < 0)
-            tmp = -1;
+        if (tmp > 100 || tmp < 0) tmp = -1;
         return tmp;
     }
 
     private int getMcc(CellIdentityLte ci) {
         int tmp = ci.getMcc();
-        if (tmp > 1000000000 || tmp < 0)
-            tmp = -1;
+        if (tmp > 1000000000 || tmp < 0) tmp = -1;
         return tmp;
     }
 
@@ -460,6 +465,126 @@ class MyBattery extends BroadcastReceiver {
     }
 }
 
-class MyWifi{
+class MyWifi extends Thread {
+    private final static String TAG = Global.CAT_WIFI;
+    private final static String TAG2 = Global.CAT_WIFI_CM;
+    private final Object mLock = new Object();
+    private final Context mContext;
+    private boolean mCont = true;
+    private ConnectivityManager.NetworkCallback mCallb;
 
+    public MyWifi(Context c) {
+        mContext = c;
+        start();
+        setupConnectivityManager();
+    }
+
+    private void setupConnectivityManager() {
+        ConnectivityManager cm;
+        cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        mCallb = new ConnectivityManager.NetworkCallback() {
+            public void onAvailable(Network network) {
+                MyLog.log(TAG, TAG2 + " onAvailable: " + network.toString());
+                doNotify();
+            }
+
+            public void onCapabilitiesChanged(Network network, NetworkCapabilities networkCapabilities) {
+                MyLog.log(TAG, TAG2 + " onCapabilitiesChanged: " + network.toString());
+                doNotify();
+            }
+
+            public void onLinkPropertiesChanged(Network network, LinkProperties linkProperties) {
+                MyLog.log(TAG, TAG2 + " onLinkPropertiesChanged: " + network.toString());
+                doNotify();
+            }
+
+            public void onLosing(Network network, int maxMsToLive) {
+                MyLog.log(TAG, TAG2 + " onLosing: " + network.toString());
+                doNotify();
+            }
+
+            public void onLost(Network network) {
+                MyLog.log(TAG, TAG2 + " onLost: " + network.toString());
+                doNotify();
+            }
+
+            public void onUnavailable() {
+                MyLog.log(TAG, TAG2 + " onUnavailable");
+                doNotify();
+            }
+        };
+    }
+
+    private void doNotify() {
+        synchronized (mLock) {
+            mLock.notifyAll();
+        }
+    }
+
+    public void run() {
+        WifiManager wm = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
+        while (mCont) {
+            synchronized (mLock) {
+                try {
+                    mLock.wait(30000);
+                    getWifiStatus(wm);
+                } catch (InterruptedException e) {
+                    MyLog.log(TAG, "wait: " + e);
+                }
+            }
+        }
+    }
+
+    public void endLoop() {
+        mCont = false;
+    }
+
+    private void getWifiStatus(WifiManager wm) {
+        try {
+            WifiInfo wi = wm.getConnectionInfo();
+            if (wi != null) {
+                MyLog.log(TAG, "ssid=" + wi.getSSID());
+                MyLog.log(TAG, "rssi=" + wi.getRssi());
+                MyLog.log(TAG, "freq=" + wi.getFrequency());
+                MyLog.log(TAG, "speed=" + wi.getLinkSpeed());
+                MyLog.log(TAG, "ip=" + getIPaddr(wi.getIpAddress()));
+            } else {
+                MyLog.log(TAG, "not connected");
+            }
+        } catch (Throwable t) {
+            MyLog.log(TAG, "getStatus: " + t);
+        }
+    }
+
+    private String getIPaddr(int ipAddress) {
+        int a = ipAddress & 255;
+        ipAddress >>= 8;
+        int b = ipAddress & 255;
+        ipAddress >>= 8;
+        int c = ipAddress & 255;
+        ipAddress >>= 8;
+        int d = ipAddress & 255;
+        return a + "." + b + "." + c + "." + d;
+    }
+
+}
+
+class MyClock extends Thread {
+    private final static String TAG = Global.CAT_CLOCK;
+    private boolean mCont = true;
+
+    public MyClock() {
+        start();
+    }
+
+    public void run() {
+        while (mCont) {
+            SystemClock.sleep(1000);
+            MyLog.log(TAG, "clk=" + Global.getTimeDate());
+        }
+    }
+
+    public void endLoop() {
+        mCont = false;
+    }
 }

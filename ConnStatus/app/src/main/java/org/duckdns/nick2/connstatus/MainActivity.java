@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
                 } else if (Global.CAT_WIFI.equals(cat)) {
                     WifiData.addData(message);
                 } else {
-                    SettingsData.addData("cat=" + cat + " msg=" + message);
                 }
+                LogData.addData("cat=" + cat + " msg=" + message);
             }
         }
     };

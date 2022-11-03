@@ -19,6 +19,9 @@ public class Global {
     public static final String SETTINGSDATA = "settingdata";
     public static final String WIFIDATA = "wifidata";
     public static final String CAT_WIFI = "wifi";
+    public static final String LOGDATA = "logdata";
+    public static final String CAT_CLOCK = "clk";
+    public static final String CAT_WIFI_CM = "wificm";
 
     private static final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMdd_HHmmss");
     private static final SimpleDateFormat sdf2 = new SimpleDateFormat("HHmmss.SSS");
