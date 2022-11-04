@@ -33,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = Global.CAT_MAIN;
     private static final Object sLock = new Object();
     private static MainActivity sCurrent;
-
+    private final Runnable mRun = () -> updateDisplay();
+    private Handler mHandler;
     private final BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String cat = intent.getStringExtra(Global.CATEGORY);
@@ -48,18 +49,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 LogData.addData("cat=" + cat + " msg=" + message);
             }
+            notifyUpdatedData();
         }
     };
 
-    private Handler mHandler;
-    private final Runnable mRun = new Runnable() {
-        @Override
-        public void run() {
-            updateDisplay();
-        }
-    };
-
-    public static void notifyUpdatedData() {
+    private static void notifyUpdatedData() {
         try {
             sCurrent.mHandler.post(sCurrent.mRun);
         } catch (Throwable t) {
@@ -68,13 +62,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateDisplay() {
+        updateDisplay_battery();
+        updateDisplay_wifi();
+    }
+
+    private void updateDisplay_battery() {
         try {
             TextView tv1 = findViewById(R.id.battery_status);
             tv1.setText(BatteryData.getStatus());
             TextView tv2 = findViewById(R.id.battery_level);
             tv2.setText(BatteryData.getLevel());
         } catch (Throwable t) {
-            MyLog.log(TAG, "updateDisplay: " + t);
+            //MyLog.log(TAG, "updateDisplay_battery: " + t);
+        }
+    }
+
+    private void updateDisplay_wifi() {
+        try {
+            TextView tv;
+            tv = findViewById(R.id.wifi_ssid);
+            tv.setText(WifiData.getSsid());
+            tv = findViewById(R.id.wifi_ip);
+            tv.setText(WifiData.getIp());
+            tv = findViewById(R.id.wifi_speed);
+            tv.setText(WifiData.getSpeed());
+            tv = findViewById(R.id.wifi_freq);
+            tv.setText(WifiData.getFreq());
+            tv = findViewById(R.id.wifi_rssi);
+            tv.setText(WifiData.getRssi());
+        } catch (Throwable t) {
+            //MyLog.log(TAG, "updateDisplay_wifi: " + t);
         }
     }
 

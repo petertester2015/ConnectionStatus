@@ -64,9 +64,9 @@ public class MyBattery extends ServicePlugin {
                     default:
                         s = "Unknown";
                 }
-                MyLog.log(TAG, "status=" + s + " level=" + level);
                 BatteryData.setStatus(s);
                 BatteryData.setLevel("" + level);
+                MyLog.log(TAG, "status=" + s + " level=" + level);
             } catch (Throwable t) {
                 MyLog.log(TAG, "MyBattery: " + t);
             }

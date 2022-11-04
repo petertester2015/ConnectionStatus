@@ -24,30 +24,26 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.tab_text_settings, R.string.tab_text_clock, R.string.tab_text_wifi, R.string.tab_text_cell, R.string.tab_text_battery};
+    private static Fragment[] sFragments;
     private final Context mContext;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
         MyLog.log(TAG, "SectionPagerAdapter()");
+        sFragments = new Fragment[TAB_TITLES.length];
+        sFragments[0] = SettingsFragment.newInstance("", "");
+        sFragments[1] = LogFragment.newInstance("", "");
+        sFragments[2] = WifiFragment.newInstance("", "");
+        sFragments[3] = CellularFragment.newInstance("", "");
+        sFragments[4] = BatteryFragment.newInstance("", "");
     }
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
         MyLog.log(TAG, "getItem " + position);
-        switch (position) {
-            case 4:
-                return BatteryFragment.newInstance("", "");
-            case 3:
-                return CellularFragment.newInstance("", "");
-            case 2:
-                return WifiFragment.newInstance("", "");
-            case 1:
-                return LogFragment.newInstance("", "");
-            default:
-                return SettingsFragment.newInstance("", "");
-        }
+        return sFragments[position];
     }
 
     @Nullable

@@ -51,7 +51,6 @@ public class BatteryData {
 
     public static void setStatus(String s) {
         sInstance.mStatus = s;
-        MainActivity.notifyUpdatedData();
     }
 
     public static String getLevel() {
@@ -60,6 +59,5 @@ public class BatteryData {
 
     public static void setLevel(String s) {
         sInstance.mLevel = s;
-        MainActivity.notifyUpdatedData();
     }
 }

@@ -11,6 +11,7 @@ import android.net.wifi.WifiManager;
 import org.duckdns.nick2.connstatus.Global;
 import org.duckdns.nick2.connstatus.MyLog;
 import org.duckdns.nick2.connstatus.MyService;
+import org.duckdns.nick2.connstatus.data.WifiData;
 
 public class MyWifi extends ServicePlugin {
     private final static String TAG = Global.CAT_WIFI;
@@ -28,11 +29,25 @@ public class MyWifi extends ServicePlugin {
         try {
             WifiInfo wi = mWifiMgr.getConnectionInfo();
             if (wi != null) {
-                MyLog.log(TAG, "ssid=" + wi.getSSID());
-                MyLog.log(TAG, "rssi=" + wi.getRssi());
-                MyLog.log(TAG, "freq=" + wi.getFrequency());
-                MyLog.log(TAG, "speed=" + wi.getLinkSpeed());
-                MyLog.log(TAG, "ip=" + getIPaddr(wi.getIpAddress()));
+                String x = wi.getSSID();
+                WifiData.setSsid(x);
+                MyLog.log(TAG, "ssid=" + x);
+
+                x = "" + wi.getRssi();
+                WifiData.setRssi(x);
+                MyLog.log(TAG, "rssi=" + x);
+
+                x = "" + wi.getFrequency();
+                WifiData.setFreq(x);
+                MyLog.log(TAG, "freq=" + x);
+
+                x = "" + wi.getLinkSpeed();
+                WifiData.setSpeed(x);
+                MyLog.log(TAG, "speed=" + x);
+
+                x = getIPaddr(wi.getIpAddress());
+                WifiData.setIp(x);
+                MyLog.log(TAG, "ip=" + x);
             } else {
                 MyLog.log(TAG, "not connected");
             }
