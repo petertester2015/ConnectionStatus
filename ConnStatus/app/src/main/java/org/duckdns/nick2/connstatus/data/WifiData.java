@@ -1,24 +1,27 @@
-package org.duckdns.nick2.connstatus;
+package org.duckdns.nick2.connstatus.data;
 
 import android.widget.ArrayAdapter;
 
+import org.duckdns.nick2.connstatus.Global;
+import org.duckdns.nick2.connstatus.MyLog;
+
 import java.util.ArrayList;
 
-public class LogData {
-    private final static String TAG = Global.LOGDATA;
+public class WifiData {
+    private final static String TAG = Global.WIFIDATA;
     private final static Object sLock = new Object();
-    private final static LogData sInstance = new LogData();
+    private final static WifiData sInstance = new WifiData();
     private final ArrayList<String> mArrayList = new ArrayList<>();
     private ArrayAdapter<String> mArrayAdapter;
 
-    private LogData() {
+    private WifiData() {
     }
 
     public static void addData(String tmp) {
         synchronized (sLock) {
             try {
                 sInstance.mArrayList.add(tmp);
-                while (sInstance.mArrayList.size() > 25) {
+                while (sInstance.mArrayList.size() > 15) {
                     sInstance.mArrayList.remove(0);
                 }
                 if (sInstance.mArrayAdapter != null) {

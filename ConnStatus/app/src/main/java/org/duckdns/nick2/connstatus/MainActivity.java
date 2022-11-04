@@ -18,6 +18,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import org.duckdns.nick2.connstatus.data.BatteryData;
+import org.duckdns.nick2.connstatus.data.CellularData;
+import org.duckdns.nick2.connstatus.data.LogData;
+import org.duckdns.nick2.connstatus.data.WifiData;
 import org.duckdns.nick2.connstatus.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {

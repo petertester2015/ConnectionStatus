@@ -1,20 +1,20 @@
-package org.duckdns.nick2.connstatus;
+package org.duckdns.nick2.connstatus.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
+import org.duckdns.nick2.connstatus.R;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link SettingsFragment#newInstance} factory method to
+ * Use the {@link ClockFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SettingsFragment extends Fragment {
+public class ClockFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,7 +25,7 @@ public class SettingsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public SettingsFragment() {
+    public ClockFragment() {
         // Required empty public constructor
     }
 
@@ -35,11 +35,11 @@ public class SettingsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment SettingsFragment.
+     * @return A new instance of fragment ClockFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SettingsFragment newInstance(String param1, String param2) {
-        SettingsFragment fragment = new SettingsFragment();
+    public static ClockFragment newInstance(String param1, String param2) {
+        ClockFragment fragment = new ClockFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -58,14 +58,7 @@ public class SettingsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_settings, container, false);
-        ArrayAdapter<String> aa = new ArrayAdapter<>(inflater.getContext(), R.layout.myline, R.id.text1, SettingsData.getDataArray());
-        SettingsData.setAdapter(aa);
-        ListView lv = v.findViewById(R.id.settingslist);
-        lv.setAdapter(aa);
-        aa.notifyDataSetChanged();
-
         // Inflate the layout for this fragment
-        return v;
+        return inflater.inflate(R.layout.fragment_clock, container, false);
     }
 }

@@ -1,17 +1,20 @@
-package org.duckdns.nick2.connstatus;
+package org.duckdns.nick2.connstatus.data;
 
 import android.widget.ArrayAdapter;
 
+import org.duckdns.nick2.connstatus.Global;
+import org.duckdns.nick2.connstatus.MyLog;
+
 import java.util.ArrayList;
 
-public class BatteryData {
-    private final static String TAG = Global.BATTDATA;
+public class SettingsData {
+    private final static String TAG = Global.SETTINGSDATA;
     private final static Object sLock = new Object();
-    private final static BatteryData sInstance = new BatteryData();
+    private final static SettingsData sInstance = new SettingsData();
     private final ArrayList<String> mArrayList = new ArrayList<>();
     private ArrayAdapter<String> mArrayAdapter;
 
-    private BatteryData() {
+    private SettingsData() {
     }
 
     public static void addData(String tmp) {

@@ -1,17 +1,20 @@
-package org.duckdns.nick2.connstatus;
+package org.duckdns.nick2.connstatus.data;
 
 import android.widget.ArrayAdapter;
 
+import org.duckdns.nick2.connstatus.Global;
+import org.duckdns.nick2.connstatus.MyLog;
+
 import java.util.ArrayList;
 
-public class WifiData {
-    private final static String TAG = Global.WIFIDATA;
+public class CellularData {
+    private final static String TAG = Global.CELLDATA;
     private final static Object sLock = new Object();
-    private final static WifiData sInstance = new WifiData();
+    private final static CellularData sInstance = new CellularData();
     private final ArrayList<String> mArrayList = new ArrayList<>();
     private ArrayAdapter<String> mArrayAdapter;
 
-    private WifiData() {
+    private CellularData() {
     }
 
     public static void addData(String tmp) {
@@ -38,3 +41,4 @@ public class WifiData {
         sInstance.mArrayAdapter = aa;
     }
 }
+

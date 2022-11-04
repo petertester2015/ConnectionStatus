@@ -9,6 +9,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import org.duckdns.nick2.connstatus.fragments.BatteryFragment;
+import org.duckdns.nick2.connstatus.fragments.CellularFragment;
+import org.duckdns.nick2.connstatus.fragments.LogFragment;
+import org.duckdns.nick2.connstatus.fragments.SettingsFragment;
+import org.duckdns.nick2.connstatus.fragments.WifiFragment;
+
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
  * one of the sections/tabs/pages.
