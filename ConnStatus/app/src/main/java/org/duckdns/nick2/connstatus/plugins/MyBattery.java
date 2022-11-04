@@ -13,32 +13,6 @@ public class MyBattery extends ServicePlugin {
     private static final String TAG = Global.CAT_BATTERY;
     private Receiver mRec;
 
-    class Receiver extends BroadcastReceiver{
-        public void onReceive(Context context, Intent intent) {
-            try {
-                int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
-                int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-                String s;
-                switch (status) {
-                    case BatteryManager.BATTERY_STATUS_CHARGING:
-                        s = "Charging";
-                        break;
-                    case BatteryManager.BATTERY_STATUS_DISCHARGING:
-                        s = "Discharging";
-                        break;
-                    case BatteryManager.BATTERY_STATUS_FULL:
-                        s = "Full";
-                        break;
-                    default:
-                        s = "Unknown";
-                }
-                MyLog.log(TAG, "status=" + s + " level=" + level);
-            } catch (Throwable t) {
-                MyLog.log(TAG, "MyBattery: " + t);
-            }
-        }
-    }
-
     @Override
     protected void setup() {
         mRec = new Receiver();
@@ -68,5 +42,31 @@ public class MyBattery extends ServicePlugin {
     @Override
     protected long getTimeout() {
         return 10000;
+    }
+
+    static class Receiver extends BroadcastReceiver {
+        public void onReceive(Context context, Intent intent) {
+            try {
+                int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+                int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+                String s;
+                switch (status) {
+                    case BatteryManager.BATTERY_STATUS_CHARGING:
+                        s = "Charging";
+                        break;
+                    case BatteryManager.BATTERY_STATUS_DISCHARGING:
+                        s = "Discharging";
+                        break;
+                    case BatteryManager.BATTERY_STATUS_FULL:
+                        s = "Full";
+                        break;
+                    default:
+                        s = "Unknown";
+                }
+                MyLog.log(TAG, "status=" + s + " level=" + level);
+            } catch (Throwable t) {
+                MyLog.log(TAG, "MyBattery: " + t);
+            }
+        }
     }
 }

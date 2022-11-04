@@ -2,6 +2,7 @@ package org.duckdns.nick2.connstatus;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
@@ -25,6 +26,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         MyLog.log(TAG, "SectionPagerAdapter()");
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) {
         MyLog.log(TAG, "getItem " + position);

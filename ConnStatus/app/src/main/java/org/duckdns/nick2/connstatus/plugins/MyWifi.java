@@ -15,8 +15,6 @@ import org.duckdns.nick2.connstatus.MyService;
 public class MyWifi extends ServicePlugin {
     private final static String TAG = Global.CAT_WIFI;
     private final static String TAG2 = Global.CAT_WIFI_CM;
-    private final Object mLock = new Object();
-    private boolean mCont = true;
     private ConnectivityManager.NetworkCallback mCallb;
     private WifiManager mWifiMgr;
 

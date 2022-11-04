@@ -1,13 +1,10 @@
 package org.duckdns.nick2.connstatus.plugins;
 
-import android.os.SystemClock;
-
 import org.duckdns.nick2.connstatus.Global;
 import org.duckdns.nick2.connstatus.MyLog;
 
 public class MyClock extends ServicePlugin {
     private final static String TAG = Global.CAT_CLOCK;
-    private boolean mCont = true;
 
     @Override
     protected void setup() {

@@ -31,6 +31,7 @@ public class Global {
         return sdf1.format(new Date());
     }
 
+    @SuppressWarnings("unused")
     public static String getTimeMillis() {
         return sdf2.format(new Date());
     }

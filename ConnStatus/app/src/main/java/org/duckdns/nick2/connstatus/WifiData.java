@@ -1,6 +1,7 @@
 package org.duckdns.nick2.connstatus;
 
 import android.widget.ArrayAdapter;
+
 import java.util.ArrayList;
 
 public class WifiData {
