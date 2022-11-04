@@ -8,6 +8,7 @@ import android.os.BatteryManager;
 
 import org.duckdns.nick2.connstatus.Global;
 import org.duckdns.nick2.connstatus.MyLog;
+import org.duckdns.nick2.connstatus.data.BatteryData;
 
 public class MyBattery extends ServicePlugin {
     private static final String TAG = Global.CAT_BATTERY;
@@ -64,6 +65,8 @@ public class MyBattery extends ServicePlugin {
                         s = "Unknown";
                 }
                 MyLog.log(TAG, "status=" + s + " level=" + level);
+                BatteryData.setStatus(s);
+                BatteryData.setLevel("" + level);
             } catch (Throwable t) {
                 MyLog.log(TAG, "MyBattery: " + t);
             }

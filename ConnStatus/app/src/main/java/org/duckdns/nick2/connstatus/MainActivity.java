@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQID_LOC2 = 54323;
     private static final String TAG = Global.CAT_MAIN;
     private static final Object sLock = new Object();
+    private static MainActivity sCurrent;
 
     private final BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
@@ -48,11 +51,40 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private Handler mHandler;
+    private final Runnable mRun = new Runnable() {
+        @Override
+        public void run() {
+            updateDisplay();
+        }
+    };
+
+    public static void notifyUpdatedData() {
+        try {
+            sCurrent.mHandler.post(sCurrent.mRun);
+        } catch (Throwable t) {
+            MyLog.log(TAG, "notifyUpdatedData: " + t);
+        }
+    }
+
+    private void updateDisplay() {
+        try {
+            TextView tv1 = findViewById(R.id.battery_status);
+            tv1.setText(BatteryData.getStatus());
+            TextView tv2 = findViewById(R.id.battery_level);
+            tv2.setText(BatteryData.getLevel());
+        } catch (Throwable t) {
+            MyLog.log(TAG, "updateDisplay: " + t);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         MyLog.log(TAG, "onCreate...");
+        sCurrent = this;
+        mHandler = new Handler();
 
         org.duckdns.nick2.connstatus.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
