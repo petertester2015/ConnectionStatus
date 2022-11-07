@@ -39,4 +39,8 @@ public class Global {
     public static String getTimeSec() {
         return sdf3.format(new Date());
     }
+
+    public static String getTimeSec(long t) {
+        return sdf3.format(new Date(t));
+    }
 }

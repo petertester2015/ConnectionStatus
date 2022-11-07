@@ -18,7 +18,7 @@ public class MyClock extends ServicePlugin {
 
     @Override
     protected void getStatus() {
-        MyLog.log(TAG, "clk=" + Global.getTimeDate());
+        MyLog.log(TAG, Global.getTimeDate());
     }
 
     @Override
