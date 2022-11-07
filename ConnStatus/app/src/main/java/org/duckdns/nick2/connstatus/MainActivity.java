@@ -33,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = Global.CAT_MAIN;
     private static final Object sLock = new Object();
     private static MainActivity sCurrent;
-    private final Runnable mRun = () -> updateDisplay();
-    private Handler mHandler;
     private final BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String cat = intent.getStringExtra(Global.CATEGORY);
@@ -49,29 +47,31 @@ public class MainActivity extends AppCompatActivity {
                 }
                 LogData.addData("cat=" + cat + " msg=" + message);
             }
-            notifyUpdatedData();
         }
-    };
+    };    private final Runnable mRun = () -> updateDisplay();
+    private Handler mHandler;
 
-    private static void notifyUpdatedData() {
+    private static void planNextUpdate() {
         try {
-            sCurrent.mHandler.post(sCurrent.mRun);
+            Handler h = sCurrent.mHandler;
+            if (h != null) h.postDelayed(sCurrent.mRun, 500);
         } catch (Throwable t) {
-            MyLog.log(TAG, "notifyUpdatedData: " + t);
+            MyLog.log(TAG, "planNextUpdate: " + t);
         }
     }
 
     private void updateDisplay() {
         updateDisplay_battery();
         updateDisplay_wifi();
+        planNextUpdate();
     }
 
     private void updateDisplay_battery() {
         try {
             TextView tv1 = findViewById(R.id.battery_status);
-            tv1.setText(BatteryData.getStatus());
+            if (tv1 != null) tv1.setText(BatteryData.getStatus());
             TextView tv2 = findViewById(R.id.battery_level);
-            tv2.setText(BatteryData.getLevel());
+            if (tv2 != null) tv2.setText(BatteryData.getLevel());
         } catch (Throwable t) {
             //MyLog.log(TAG, "updateDisplay_battery: " + t);
         }
@@ -81,15 +81,15 @@ public class MainActivity extends AppCompatActivity {
         try {
             TextView tv;
             tv = findViewById(R.id.wifi_ssid);
-            tv.setText(WifiData.getSsid());
+            if (tv != null) tv.setText(WifiData.getSsid());
             tv = findViewById(R.id.wifi_ip);
-            tv.setText(WifiData.getIp());
+            if (tv != null) tv.setText(WifiData.getIp());
             tv = findViewById(R.id.wifi_speed);
-            tv.setText(WifiData.getSpeed());
+            if (tv != null) tv.setText(WifiData.getSpeed());
             tv = findViewById(R.id.wifi_freq);
-            tv.setText(WifiData.getFreq());
+            if (tv != null) tv.setText(WifiData.getFreq());
             tv = findViewById(R.id.wifi_rssi);
-            tv.setText(WifiData.getRssi());
+            if (tv != null) tv.setText(WifiData.getRssi());
         } catch (Throwable t) {
             //MyLog.log(TAG, "updateDisplay_wifi: " + t);
         }
@@ -101,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
 
         MyLog.log(TAG, "onCreate...");
         sCurrent = this;
-        mHandler = new Handler();
 
         org.duckdns.nick2.connstatus.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -137,11 +136,18 @@ public class MainActivity extends AppCompatActivity {
         MyLog.log(TAG, "onResume...");
         checkPermissionsAndStartService();
         MyLog.log(TAG, "onResume.");
+        mHandler = new Handler();
+        try {
+            sCurrent.mHandler.post(sCurrent.mRun);
+        } catch (Throwable t) {
+            MyLog.log(TAG, "notifyUpdatedData: " + t);
+        }
     }
 
     protected void onPause() {
         super.onPause();
         MyLog.log(TAG, "onPause");
+        sCurrent.mHandler = null;
     }
 
     protected void onStart() {
@@ -228,4 +234,6 @@ public class MainActivity extends AppCompatActivity {
         }
         MyLog.log(TAG, "Some unknown permission req=" + requestCode);
     }
+
+
 }
