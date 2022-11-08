@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
                 LogData.addData("cat=" + cat + " msg=" + message);
             }
         }
-    };    private final Runnable mRun = () -> updateDisplay();
-    private Handler mHandler;
+    };
+    private Handler mHandler;    private final Runnable mRun = () -> updateDisplay();
 
     private static void planNextUpdate() {
         try {
@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
         MyLog.log(TAG, "onCreate...");
         sCurrent = this;
+        Global.setActivity(this);
 
         org.duckdns.nick2.connstatus.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

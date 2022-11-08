@@ -22,10 +22,19 @@ public class Global {
     public static final String LOGDATA = "logdata";
     public static final String CAT_CLOCK = "clk";
     public static final String CAT_WIFI_CM = "wificm";
-
+    public static final String TAG = "mylog";
     private static final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMdd_HHmmss");
     private static final SimpleDateFormat sdf2 = new SimpleDateFormat("HHmmss.SSS");
     private static final SimpleDateFormat sdf3 = new SimpleDateFormat("HHmmss");
+    private static MainActivity sActivity;
+
+    public static MainActivity getActivity() {
+        return sActivity;
+    }
+
+    public static void setActivity(MainActivity sActivity) {
+        Global.sActivity = sActivity;
+    }
 
     public static String getTimeDate() {
         return sdf1.format(new Date());
