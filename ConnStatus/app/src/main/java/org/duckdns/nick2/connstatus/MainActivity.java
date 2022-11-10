@@ -99,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Global.resetActivityStartTime();
+
         MyLog.log(TAG, "onCreate...");
         sCurrent = this;
         Global.setActivity(this);
