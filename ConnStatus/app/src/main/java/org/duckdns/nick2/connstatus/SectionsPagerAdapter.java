@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import org.duckdns.nick2.connstatus.fragments.BatteryFragment;
 import org.duckdns.nick2.connstatus.fragments.CellularFragment;
+import org.duckdns.nick2.connstatus.fragments.ClockFragment;
 import org.duckdns.nick2.connstatus.fragments.LogFragment;
 import org.duckdns.nick2.connstatus.fragments.SettingsFragment;
 import org.duckdns.nick2.connstatus.fragments.WifiFragment;
