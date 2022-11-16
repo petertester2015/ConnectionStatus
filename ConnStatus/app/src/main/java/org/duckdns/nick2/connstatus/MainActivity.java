@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.TextView;
 
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-    private Handler mHandler;    private final Runnable mRun = () -> updateDisplay();
+    private Handler mHandler;
 
     private static void planNextUpdate() {
         try {
@@ -58,12 +59,50 @@ public class MainActivity extends AppCompatActivity {
         } catch (Throwable t) {
             MyLog.log(TAG, "planNextUpdate: " + t);
         }
-    }
+    }    private final Runnable mRun = () -> updateDisplay();
 
     private void updateDisplay() {
         updateDisplay_battery();
         updateDisplay_wifi();
+        updateDisplay_clk();
         planNextUpdate();
+    }
+
+    private String getUptime(long t) {
+        long sec = t / 1000;
+        long min = sec / 60;
+        sec = sec - min * 60;
+        long h = min / 60;
+        min = min - h * 60;
+        long d = h / 24;
+        h = h - d * 24;
+
+        return "" + d + "d" + h + "h" + min + "m" + sec + "s";
+    }
+
+    private void updateDisplay_clk() {
+        try {
+            long t = SystemClock.uptimeMillis() - Global.getUptimeStartTime();
+            long tt = System.currentTimeMillis();
+            TextView tv;
+            tv = findViewById(R.id.textAppTime1);
+            if (tv != null) tv.setText(Global.getFullTime(Global.getAppStartTime()));
+            tv = findViewById(R.id.textActTime1);
+            if (tv != null) tv.setText(Global.getFullTime(Global.getActivityStartTime()));
+            tv = findViewById(R.id.textUpTime1);
+            if (tv != null) tv.setText(getUptime(t));
+
+            tv = findViewById(R.id.textAppTime2);
+            long ttt = tt-Global.getAppStartTime();
+            if (tv != null) tv.setText(getUptime(ttt));
+            tv = findViewById(R.id.textActTime2);
+            if (tv != null) tv.setText(getUptime(tt-Global.getActivityStartTime()));
+            tv = findViewById(R.id.textUpTime2);
+            long t4 = ttt - t;
+            if (tv != null) tv.setText(getUptime(t4));
+        } catch (Throwable t) {
+            //MyLog.log(TAG, "updateDisplay_battery: " + t);
+        }
     }
 
     private void updateDisplay_battery() {
@@ -237,6 +276,8 @@ public class MainActivity extends AppCompatActivity {
         }
         MyLog.log(TAG, "Some unknown permission req=" + requestCode);
     }
+
+
 
 
 }

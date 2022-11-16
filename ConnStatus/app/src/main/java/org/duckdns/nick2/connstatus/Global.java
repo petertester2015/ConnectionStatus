@@ -74,4 +74,7 @@ public class Global {
     public static String getTimeSec(long t) {
         return sdf3.format(new Date(t));
     }
+    public static String getFullTime(long t) {
+        return sdf1.format(new Date(t));
+    }
 }
