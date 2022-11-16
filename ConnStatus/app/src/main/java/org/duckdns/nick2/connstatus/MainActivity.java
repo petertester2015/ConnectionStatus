@@ -59,14 +59,14 @@ public class MainActivity extends AppCompatActivity {
         } catch (Throwable t) {
             MyLog.log(TAG, "planNextUpdate: " + t);
         }
-    }    private final Runnable mRun = () -> updateDisplay();
+    }
 
     private void updateDisplay() {
         updateDisplay_battery();
         updateDisplay_wifi();
         updateDisplay_clk();
         planNextUpdate();
-    }
+    }    private final Runnable mRun = () -> updateDisplay();
 
     private String getUptime(long t) {
         long sec = t / 1000;
@@ -93,10 +93,10 @@ public class MainActivity extends AppCompatActivity {
             if (tv != null) tv.setText(getUptime(t));
 
             tv = findViewById(R.id.textAppTime2);
-            long ttt = tt-Global.getAppStartTime();
+            long ttt = tt - Global.getAppStartTime();
             if (tv != null) tv.setText(getUptime(ttt));
             tv = findViewById(R.id.textActTime2);
-            if (tv != null) tv.setText(getUptime(tt-Global.getActivityStartTime()));
+            if (tv != null) tv.setText(getUptime(tt - Global.getActivityStartTime()));
             tv = findViewById(R.id.textUpTime2);
             long t4 = ttt - t;
             if (tv != null) tv.setText(getUptime(t4));

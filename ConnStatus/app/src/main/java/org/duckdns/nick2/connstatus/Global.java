@@ -29,9 +29,9 @@ public class Global {
     private static final SimpleDateFormat sdf2 = new SimpleDateFormat("HHmmss.SSS");
     private static final SimpleDateFormat sdf3 = new SimpleDateFormat("HHmmss");
     private static final long sAppStartTime = System.currentTimeMillis();
+    private static final long sUptimeStartTime = SystemClock.uptimeMillis();
     private static MainActivity sActivity;
     private static long sActivityStartTime = System.currentTimeMillis();
-    private static final long sUptimeStartTime = SystemClock.uptimeMillis();
 
     public static long getUptimeStartTime() {
         return sUptimeStartTime;
@@ -74,6 +74,7 @@ public class Global {
     public static String getTimeSec(long t) {
         return sdf3.format(new Date(t));
     }
+
     public static String getFullTime(long t) {
         return sdf1.format(new Date(t));
     }
