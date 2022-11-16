@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.SettingsFragment">
+
+    <TextView
+        android:id="@+id/textAppTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Application time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/rowAppTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/textAppTime"
+        app:layout_constraintStart_toStartOf="@+id/textAppTime"
+        app:layout_constraintTop_toBottomOf="@+id/textAppTime">
+
+        <TextView
+            android:id="@+id/textAppTime1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="AppTime1" />
+
+        <TextView
+            android:id="@+id/textAppTime2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="AppTime2" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textActTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Activity time"
+        app:layout_constraintEnd_toEndOf="@+id/rowAppTime"
+        app:layout_constraintStart_toStartOf="@+id/rowAppTime"
+        app:layout_constraintTop_toBottomOf="@+id/rowAppTime" />
+
+    <LinearLayout
+        android:id="@+id/rowActTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/textActTime"
+        app:layout_constraintStart_toStartOf="@+id/textActTime"
+        app:layout_constraintTop_toBottomOf="@+id/textActTime">
+
+        <TextView
+            android:id="@+id/textActTime1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ActTime1" />
+
+        <TextView
+            android:id="@+id/textActTime2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ActTime2" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textUpTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Uptime/deep sleep"
+        app:layout_constraintEnd_toEndOf="@+id/rowActTime"
+        app:layout_constraintStart_toStartOf="@+id/rowActTime"
+        app:layout_constraintTop_toBottomOf="@+id/rowActTime" />
+
+    <LinearLayout
+        android:id="@+id/rowUpTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/textUpTime"
+        app:layout_constraintStart_toStartOf="@+id/textUpTime"
+        app:layout_constraintTop_toBottomOf="@+id/textUpTime">
+
+        <TextView
+            android:id="@+id/textUpTime1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="UpTime1" />
+
+        <TextView
+            android:id="@+id/textUpTime2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="UpTime2" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import org.duckdns.nick2.connstatus.fragments.BatteryFragment;
 import org.duckdns.nick2.connstatus.fragments.CellularFragment;
+import org.duckdns.nick2.connstatus.fragments.ClockFragment;
 import org.duckdns.nick2.connstatus.fragments.LogFragment;
 import org.duckdns.nick2.connstatus.fragments.SettingsFragment;
 import org.duckdns.nick2.connstatus.fragments.WifiFragment;
@@ -23,7 +24,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     private final static String TAG = Global.CAT_PAG_ADAPTER;
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_settings, R.string.tab_text_clock, R.string.tab_text_wifi, R.string.tab_text_cell, R.string.tab_text_battery};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_clk, R.string.tab_text_settings, R.string.tab_text_clock, R.string.tab_text_wifi, R.string.tab_text_cell, R.string.tab_text_battery};
     private static Fragment[] sFragments;
     private final Context mContext;
 
@@ -32,11 +33,12 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         mContext = context;
         MyLog.log(TAG, "SectionPagerAdapter()");
         sFragments = new Fragment[TAB_TITLES.length];
-        sFragments[0] = SettingsFragment.newInstance("", "");
-        sFragments[1] = LogFragment.newInstance("", "");
-        sFragments[2] = WifiFragment.newInstance("", "");
-        sFragments[3] = CellularFragment.newInstance("", "");
-        sFragments[4] = BatteryFragment.newInstance("", "");
+        sFragments[0] = ClockFragment.newInstance("", "");
+        sFragments[1] = SettingsFragment.newInstance("", "");
+        sFragments[2] = LogFragment.newInstance("", "");
+        sFragments[3] = WifiFragment.newInstance("", "");
+        sFragments[4] = CellularFragment.newInstance("", "");
+        sFragments[5] = BatteryFragment.newInstance("", "");
     }
 
     @NonNull

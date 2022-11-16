@@ -1,5 +1,7 @@
 package org.duckdns.nick2.connstatus;
 
+import android.os.SystemClock;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -26,7 +28,27 @@ public class Global {
     private static final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMdd_HHmmss");
     private static final SimpleDateFormat sdf2 = new SimpleDateFormat("HHmmss.SSS");
     private static final SimpleDateFormat sdf3 = new SimpleDateFormat("HHmmss");
+    private static final long sAppStartTime = System.currentTimeMillis();
+    private static final long sUptimeStartTime = SystemClock.uptimeMillis();
     private static MainActivity sActivity;
+    private static long sActivityStartTime = System.currentTimeMillis();
+
+    public static long getUptimeStartTime() {
+        return sUptimeStartTime;
+    }
+
+    public static long getAppStartTime() {
+        return sAppStartTime;
+    }
+
+    public static long getActivityStartTime() {
+        return sActivityStartTime;
+    }
+
+    public static void resetActivityStartTime() {
+
+        Global.sActivityStartTime = System.currentTimeMillis();
+    }
 
     public static MainActivity getActivity() {
         return sActivity;
@@ -51,5 +73,9 @@ public class Global {
 
     public static String getTimeSec(long t) {
         return sdf3.format(new Date(t));
+    }
+
+    public static String getFullTime(long t) {
+        return sdf1.format(new Date(t));
     }
 }
