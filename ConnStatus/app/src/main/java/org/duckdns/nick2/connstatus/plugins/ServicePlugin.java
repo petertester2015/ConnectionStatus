@@ -30,7 +30,6 @@ public abstract class ServicePlugin extends Thread {
         doNotify();
     }
 
-    @SuppressWarnings("unused")
     protected void doNotify() {
         synchronized (mLock) {
             mLock.notifyAll();
@@ -52,7 +51,6 @@ public abstract class ServicePlugin extends Thread {
         loopCleanup();
     }
 
-    @SuppressWarnings("unused")
     protected MyService getService() {
         return MyService.getCurrent();
     }
