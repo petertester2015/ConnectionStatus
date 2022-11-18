@@ -7,12 +7,13 @@ import android.os.IBinder;
 import org.duckdns.nick2.connstatus.plugins.MyBattery;
 import org.duckdns.nick2.connstatus.plugins.MyClock;
 import org.duckdns.nick2.connstatus.plugins.MyListener;
+import org.duckdns.nick2.connstatus.plugins.MyNetwork;
 import org.duckdns.nick2.connstatus.plugins.MyWifi;
 import org.duckdns.nick2.connstatus.plugins.ServicePlugin;
 
 public class MyService extends Service {
     private static final String TAG = Global.CAT_MYSERVICE;
-    private static final Class<ServicePlugin>[] sPLUGINS = new Class[]{MyBattery.class, MyListener.class, MyWifi.class, MyClock.class};
+    private static final Class<ServicePlugin>[] sPLUGINS = new Class[]{MyBattery.class, MyListener.class, MyWifi.class, MyClock.class, MyNetwork.class};
     private static MyService sService;
     private static ServicePlugin[] sPluginInstances;
 

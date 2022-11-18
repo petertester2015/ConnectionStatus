@@ -24,6 +24,7 @@ import com.google.android.material.tabs.TabLayout;
 import org.duckdns.nick2.connstatus.data.BatteryData;
 import org.duckdns.nick2.connstatus.data.CellularData;
 import org.duckdns.nick2.connstatus.data.LogData;
+import org.duckdns.nick2.connstatus.data.NetworkData;
 import org.duckdns.nick2.connstatus.data.WifiData;
 import org.duckdns.nick2.connstatus.databinding.ActivityMainBinding;
 
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
                     CellularData.addData(message);
                 } else if (Global.CAT_WIFI.equals(cat)) {
                     WifiData.addData(message);
+                } else if (Global.CAT_NETWORK.equals(cat)) {
+                    NetworkData.addData(message);
                 }
                 LogData.addData("cat=" + cat + " msg=" + message);
             }
