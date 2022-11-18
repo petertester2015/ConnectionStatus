@@ -24,6 +24,7 @@ import com.google.android.material.tabs.TabLayout;
 import org.duckdns.nick2.connstatus.data.BatteryData;
 import org.duckdns.nick2.connstatus.data.CellularData;
 import org.duckdns.nick2.connstatus.data.LogData;
+import org.duckdns.nick2.connstatus.data.NetworkData;
 import org.duckdns.nick2.connstatus.data.WifiData;
 import org.duckdns.nick2.connstatus.databinding.ActivityMainBinding;
 
@@ -43,8 +44,10 @@ public class MainActivity extends AppCompatActivity {
                     BatteryData.addData(message);
                 } else if (Global.CAT_STATIONS.equals(cat) || Global.CAT_PHONE_STATE.equals(cat)) {
                     CellularData.addData(message);
-                } else if (Global.CAT_WIFI.equals(cat)) {
+                } else if (Global.CAT_WIFI.equals(cat) || Global.CAT_WIFI_CM.equals(cat)) {
                     WifiData.addData(message);
+                } else if (Global.CAT_NETWORK.equals(cat)) {
+                    NetworkData.addData(message);
                 }
                 LogData.addData("cat=" + cat + " msg=" + message);
             }
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         updateDisplay_wifi();
         updateDisplay_clk();
         planNextUpdate();
-    }    private final Runnable mRun = () -> updateDisplay();
+    }
 
     private String getUptime(long t) {
         long sec = t / 1000;
@@ -78,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         h = h - d * 24;
 
         return "" + d + "d" + h + "h" + min + "m" + sec + "s";
-    }
+    }    private final Runnable mRun = () -> updateDisplay();
 
     private void updateDisplay_clk() {
         try {

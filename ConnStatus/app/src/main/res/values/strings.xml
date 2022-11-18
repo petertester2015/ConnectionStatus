@@ -1,11 +1,11 @@
 <resources>
     <string name="tab_text_clk">Clk</string>
     <string name="app_name">ConnStatus</string>
-    <string name="tab_text_settings">Settings</string>
-    <string name="tab_text_clock">Logs</string>
+    <string name="tab_text_settings">Sett</string>
+    <string name="tab_text_clock">Log</string>
     <string name="tab_text_wifi">Wifi</string>
-    <string name="tab_text_cell">Cellular</string>
-    <string name="tab_text_battery">Battery</string>
+    <string name="tab_text_cell">Cell</string>
+    <string name="tab_text_battery">Batt</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- Preference Titles -->
@@ -22,4 +22,5 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="tab_text_network">Netw</string>
 </resources>
