@@ -1,11 +1,11 @@
 <resources>
-    <string name="tab_text_clk">Clk</string>
+    <string name="tab_text_clk">clk</string>
     <string name="app_name">ConnStatus</string>
-    <string name="tab_text_settings">Sett</string>
-    <string name="tab_text_clock">Log</string>
-    <string name="tab_text_wifi">Wifi</string>
-    <string name="tab_text_cell">Cell</string>
-    <string name="tab_text_battery">Batt</string>
+    <string name="tab_text_settings">sett</string>
+    <string name="tab_text_clock">log</string>
+    <string name="tab_text_wifi">wifi</string>
+    <string name="tab_text_cell">cell</string>
+    <string name="tab_text_battery">batt</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- Preference Titles -->
