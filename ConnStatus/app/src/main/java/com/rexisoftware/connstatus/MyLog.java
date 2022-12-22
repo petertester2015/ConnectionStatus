@@ -1,4 +1,4 @@
-package org.duckdns.nick2.connstatus;
+package com.rexisoftware.connstatus;
 
 import android.app.Activity;
 import android.content.Context;

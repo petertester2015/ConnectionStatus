@@ -1,4 +1,4 @@
-package org.duckdns.nick2.connstatus;
+package com.rexisoftware.connstatus;
 
 import android.os.SystemClock;
 

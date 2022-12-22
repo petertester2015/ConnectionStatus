@@ -1,4 +1,4 @@
-package org.duckdns.nick2.connstatus.plugins;
+package com.rexisoftware.connstatus.plugins;
 
 import static android.telephony.PhoneStateListener.LISTEN_CELL_INFO;
 import static android.telephony.PhoneStateListener.LISTEN_CELL_LOCATION;
@@ -25,9 +25,9 @@ import android.telephony.TelephonyManager;
 
 import androidx.core.app.ActivityCompat;
 
-import org.duckdns.nick2.connstatus.Global;
-import org.duckdns.nick2.connstatus.MyLog;
-import org.duckdns.nick2.connstatus.MyService;
+import com.rexisoftware.connstatus.Global;
+import com.rexisoftware.connstatus.MyLog;
+import com.rexisoftware.connstatus.MyService;
 
 import java.util.List;
 
@@ -122,8 +122,8 @@ public class MyListener extends ServicePlugin {
                 return "HSPA";
             case TelephonyManager.NETWORK_TYPE_UMTS:
                 return "UMTS";
-            case TelephonyManager.NETWORK_TYPE_NR:
-                return "NR";
+//            case TelephonyManager.NETWORK_TYPE_NR:
+//                return "NR";
             case TelephonyManager.NETWORK_TYPE_UNKNOWN:
                 return "Unknown";
             default:

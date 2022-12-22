@@ -1,7 +1,7 @@
-package org.duckdns.nick2.connstatus.plugins;
+package com.rexisoftware.connstatus.plugins;
 
-import org.duckdns.nick2.connstatus.MyLog;
-import org.duckdns.nick2.connstatus.MyService;
+import com.rexisoftware.connstatus.MyLog;
+import com.rexisoftware.connstatus.MyService;
 
 public abstract class ServicePlugin extends Thread {
     private final Object mLock = new Object();

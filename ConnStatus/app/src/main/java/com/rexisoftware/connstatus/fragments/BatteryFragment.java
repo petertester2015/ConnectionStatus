@@ -1,4 +1,4 @@
-package org.duckdns.nick2.connstatus.fragments;
+package com.rexisoftware.connstatus.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,15 +9,15 @@ import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
-import org.duckdns.nick2.connstatus.R;
-import org.duckdns.nick2.connstatus.data.CellularData;
+import com.rexisoftware.connstatus.R;
+import com.rexisoftware.connstatus.data.BatteryData;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link CellularFragment#newInstance} factory method to
+ * Use the {@link BatteryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CellularFragment extends Fragment {
+public class BatteryFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,7 +28,7 @@ public class CellularFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public CellularFragment() {
+    public BatteryFragment() {
         // Required empty public constructor
     }
 
@@ -38,11 +38,11 @@ public class CellularFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CellularFragment.
+     * @return A new instance of fragment BatteryFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CellularFragment newInstance(String param1, String param2) {
-        CellularFragment fragment = new CellularFragment();
+    public static BatteryFragment newInstance(String param1, String param2) {
+        BatteryFragment fragment = new BatteryFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,10 +61,10 @@ public class CellularFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_cellular, container, false);
-        ArrayAdapter<String> aa = new ArrayAdapter<>(inflater.getContext(), R.layout.myline, R.id.text1, CellularData.getDataArray());
-        CellularData.setAdapter(aa);
-        ListView lv = v.findViewById(R.id.celllist);
+        View v = inflater.inflate(R.layout.fragment_battery, container, false);
+        ArrayAdapter<String> aa = new ArrayAdapter<>(inflater.getContext(), R.layout.myline, R.id.text1, BatteryData.getDataArray());
+        BatteryData.setAdapter(aa);
+        ListView lv = v.findViewById(R.id.battlist);
         lv.setAdapter(aa);
         aa.notifyDataSetChanged();
 

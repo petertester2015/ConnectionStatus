@@ -1,4 +1,4 @@
-package org.duckdns.nick2.connstatus.plugins;
+package com.rexisoftware.connstatus.plugins;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -9,9 +9,9 @@ import android.net.NetworkInfo;
 import android.net.NetworkRequest;
 import android.net.wifi.WifiManager;
 
-import org.duckdns.nick2.connstatus.Global;
-import org.duckdns.nick2.connstatus.MyLog;
-import org.duckdns.nick2.connstatus.MyService;
+import com.rexisoftware.connstatus.Global;
+import com.rexisoftware.connstatus.MyLog;
+import com.rexisoftware.connstatus.MyService;
 
 public class MyNetwork extends ServicePlugin {
     private final static String TAG = Global.CAT_NETWORK;
@@ -57,7 +57,7 @@ public class MyNetwork extends ServicePlugin {
                 new NetworkRequest.Builder()
                         .addCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
                         .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                        .setIncludeOtherUidNetworks(true)
+                        //.setIncludeOtherUidNetworks(true)
                         .build();
         cm.registerNetworkCallback(request, mCallb);
     }

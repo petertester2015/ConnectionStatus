@@ -1,21 +1,24 @@
-package org.duckdns.nick2.connstatus.data;
+package com.rexisoftware.connstatus.data;
 
 import android.widget.ArrayAdapter;
 
-import org.duckdns.nick2.connstatus.Global;
-import org.duckdns.nick2.connstatus.MyLog;
+import com.rexisoftware.connstatus.Global;
+import com.rexisoftware.connstatus.MyLog;
 
 import java.util.ArrayList;
 
-public class SettingsData {
-    private final static String TAG = Global.SETTINGSDATA;
+public class BatteryData {
+    private final static String TAG = Global.BATTDATA;
     private final static Object sLock = new Object();
-    private final static SettingsData sInstance = new SettingsData();
+    private final static BatteryData sInstance = new BatteryData();
     private final ArrayList<String> mArrayList = new ArrayList<>();
     private ArrayAdapter<String> mArrayAdapter;
+    private String mStatus = "?";
+    private String mLevel = "?";
 
-    private SettingsData() {
+    private BatteryData() {
     }
+
 
     public static void addData(String tmp) {
         synchronized (sLock) {
@@ -39,5 +42,21 @@ public class SettingsData {
 
     public static void setAdapter(ArrayAdapter<String> aa) {
         sInstance.mArrayAdapter = aa;
+    }
+
+    public static String getStatus() {
+        return "Status: " + sInstance.mStatus;
+    }
+
+    public static void setStatus(String s) {
+        sInstance.mStatus = s;
+    }
+
+    public static String getLevel() {
+        return "Level: " + sInstance.mLevel;
+    }
+
+    public static void setLevel(String s) {
+        sInstance.mLevel = s;
     }
 }

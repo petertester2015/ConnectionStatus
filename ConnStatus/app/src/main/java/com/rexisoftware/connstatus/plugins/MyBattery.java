@@ -1,4 +1,4 @@
-package org.duckdns.nick2.connstatus.plugins;
+package com.rexisoftware.connstatus.plugins;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
 
-import org.duckdns.nick2.connstatus.Global;
-import org.duckdns.nick2.connstatus.MyLog;
-import org.duckdns.nick2.connstatus.data.BatteryData;
+import com.rexisoftware.connstatus.Global;
+import com.rexisoftware.connstatus.MyLog;
+import com.rexisoftware.connstatus.data.BatteryData;
 
 public class MyBattery extends ServicePlugin {
     private static final String TAG = Global.CAT_BATTERY;

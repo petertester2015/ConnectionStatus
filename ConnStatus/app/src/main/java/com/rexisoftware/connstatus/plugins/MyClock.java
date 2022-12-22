@@ -1,7 +1,7 @@
-package org.duckdns.nick2.connstatus.plugins;
+package com.rexisoftware.connstatus.plugins;
 
-import org.duckdns.nick2.connstatus.Global;
-import org.duckdns.nick2.connstatus.MyLog;
+import com.rexisoftware.connstatus.Global;
+import com.rexisoftware.connstatus.MyLog;
 
 public class MyClock extends ServicePlugin {
     private final static String TAG = Global.CAT_CLOCK;

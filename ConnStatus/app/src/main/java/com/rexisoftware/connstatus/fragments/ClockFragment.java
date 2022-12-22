@@ -1,23 +1,20 @@
-package org.duckdns.nick2.connstatus.fragments;
+package com.rexisoftware.connstatus.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
 
-import org.duckdns.nick2.connstatus.R;
-import org.duckdns.nick2.connstatus.data.LogData;
+import com.rexisoftware.connstatus.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link LogFragment#newInstance} factory method to
+ * Use the {@link ClockFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LogFragment extends Fragment {
+public class ClockFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,7 +25,7 @@ public class LogFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public LogFragment() {
+    public ClockFragment() {
         // Required empty public constructor
     }
 
@@ -38,11 +35,11 @@ public class LogFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment LogFragment.
+     * @return A new instance of fragment SettingsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LogFragment newInstance(String param1, String param2) {
-        LogFragment fragment = new LogFragment();
+    public static ClockFragment newInstance(String param1, String param2) {
+        ClockFragment fragment = new ClockFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,12 +58,7 @@ public class LogFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_log, container, false);
-        ArrayAdapter<String> aa = new ArrayAdapter<>(inflater.getContext(), R.layout.myline, R.id.text1, LogData.getDataArray());
-        LogData.setAdapter(aa);
-        ListView lv = v.findViewById(R.id.loglist);
-        lv.setAdapter(aa);
-        aa.notifyDataSetChanged();
+        View v = inflater.inflate(R.layout.fragment_clock, container, false);
 
         // Inflate the layout for this fragment
         return v;

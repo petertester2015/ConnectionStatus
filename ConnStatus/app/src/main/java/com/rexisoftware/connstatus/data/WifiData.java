@@ -1,9 +1,9 @@
-package org.duckdns.nick2.connstatus.data;
+package com.rexisoftware.connstatus.data;
 
 import android.widget.ArrayAdapter;
 
-import org.duckdns.nick2.connstatus.Global;
-import org.duckdns.nick2.connstatus.MyLog;
+import com.rexisoftware.connstatus.Global;
+import com.rexisoftware.connstatus.MyLog;
 
 import java.util.ArrayList;
 

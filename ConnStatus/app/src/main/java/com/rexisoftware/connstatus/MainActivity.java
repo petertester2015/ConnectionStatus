@@ -1,4 +1,4 @@
-package org.duckdns.nick2.connstatus;
+package com.rexisoftware.connstatus;
 
 import android.Manifest;
 import android.content.BroadcastReceiver;
@@ -6,27 +6,32 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
+import com.rexisoftware.connstatus.data.BatteryData;
+import com.rexisoftware.connstatus.data.CellularData;
+import com.rexisoftware.connstatus.data.LogData;
+import com.rexisoftware.connstatus.data.NetworkData;
+import com.rexisoftware.connstatus.data.WifiData;
 
-import org.duckdns.nick2.connstatus.data.BatteryData;
-import org.duckdns.nick2.connstatus.data.CellularData;
-import org.duckdns.nick2.connstatus.data.LogData;
-import org.duckdns.nick2.connstatus.data.NetworkData;
-import org.duckdns.nick2.connstatus.data.WifiData;
-import org.duckdns.nick2.connstatus.databinding.ActivityMainBinding;
+import com.rexisoftware.connstatus.R;
+
+import com.rexisoftware.connstatus.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQID_LOC = 54321;
@@ -81,7 +86,9 @@ public class MainActivity extends AppCompatActivity {
         h = h - d * 24;
 
         return "" + d + "d" + h + "h" + min + "m" + sec + "s";
-    }    private final Runnable mRun = () -> updateDisplay();
+    }
+
+    private final Runnable mRun = () -> updateDisplay();
 
     private void updateDisplay_clk() {
         try {
@@ -147,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         sCurrent = this;
         Global.setActivity(this);
 
-        org.duckdns.nick2.connstatus.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        com.rexisoftware.connstatus.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         MyLog.log(TAG, "onCreate1");

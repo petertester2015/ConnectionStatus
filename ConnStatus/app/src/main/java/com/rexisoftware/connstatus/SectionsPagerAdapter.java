@@ -1,4 +1,4 @@
-package org.duckdns.nick2.connstatus;
+package com.rexisoftware.connstatus;
 
 import android.content.Context;
 
@@ -9,13 +9,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import org.duckdns.nick2.connstatus.fragments.BatteryFragment;
-import org.duckdns.nick2.connstatus.fragments.CellularFragment;
-import org.duckdns.nick2.connstatus.fragments.ClockFragment;
-import org.duckdns.nick2.connstatus.fragments.LogFragment;
-import org.duckdns.nick2.connstatus.fragments.NetworkFragment;
-import org.duckdns.nick2.connstatus.fragments.SettingsFragment;
-import org.duckdns.nick2.connstatus.fragments.WifiFragment;
+import com.rexisoftware.connstatus.fragments.BatteryFragment;
+import com.rexisoftware.connstatus.fragments.CellularFragment;
+import com.rexisoftware.connstatus.fragments.ClockFragment;
+import com.rexisoftware.connstatus.fragments.LogFragment;
+import com.rexisoftware.connstatus.fragments.NetworkFragment;
+import com.rexisoftware.connstatus.fragments.SettingsFragment;
+import com.rexisoftware.connstatus.fragments.WifiFragment;
+
+import com.rexisoftware.connstatus.R;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
