@@ -19,7 +19,7 @@ import java.util.Date;
 public class MyLog extends Thread {
     public static final Charset sAscii = StandardCharsets.US_ASCII;
     private final static String TAG = "ConnStat";
-    private static final boolean LOG2ANDROIDLOG = true;
+    private static final boolean LOG2ANDROIDLOG = false;
     private static final MyLog instance = new MyLog();
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
     private final Object mLock = new Object();
@@ -129,7 +129,7 @@ public class MyLog extends Thread {
         try {
             mFos.close();
         } catch (Throwable t) {
-            Log.d(Global.TAG, "close file", t);
+            Log.d(TAG, "close file", t);
             mEverything.append("Close file: " + t + "\n");
         }
         mFos = null;
@@ -150,7 +150,7 @@ public class MyLog extends Thread {
         if (tmp != null) {
             for (String tmp2 : tmp) {
                 if (LOG2ANDROIDLOG) {
-                    Log.d(Global.TAG, tmp2);
+                    Log.d(TAG, tmp2);
                 }
                 String tmp3 = tmp2 + "\n";
                 mEverything.append(tmp3);
@@ -183,7 +183,7 @@ public class MyLog extends Thread {
             File f3 = new File(mDataFolder, name);
             mFos = new FileOutputStream(f3);
         } catch (Throwable t) {
-            Log.e(Global.TAG, "openfile", t);
+            Log.e(TAG, "openfile", t);
             mEverything.append("openfile:" + t);
         }
     }

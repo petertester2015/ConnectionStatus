@@ -24,7 +24,7 @@ public class Global {
     public static final String LOGDATA = "logdata";
     public static final String CAT_CLOCK = "clk";
     public static final String CAT_WIFI_CM = "wificm";
-    public static final String TAG = "mylog";
+    //public static final String TAG = "mylog";
     public static final String NETWORKDATA = "netwdata";
     public static final String CAT_NETWORK = "netw";
     private static final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMdd_HHmmss");
