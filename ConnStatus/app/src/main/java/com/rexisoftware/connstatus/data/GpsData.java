@@ -24,7 +24,7 @@ public class GpsData {
         synchronized (sLock) {
             try {
                 sInstance.mArrayList.add(tmp);
-                while (sInstance.mArrayList.size() > 15) {
+                while (sInstance.mArrayList.size() > 10) {
                     sInstance.mArrayList.remove(0);
                 }
                 if (sInstance.mArrayAdapter != null) {

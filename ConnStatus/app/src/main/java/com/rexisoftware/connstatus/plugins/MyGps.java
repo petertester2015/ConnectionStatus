@@ -3,21 +3,15 @@ package com.rexisoftware.connstatus.plugins;
 import static android.content.Context.LOCATION_SERVICE;
 
 import android.Manifest;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.BatteryManager;
 
 import androidx.annotation.NonNull;
 
 import com.rexisoftware.connstatus.Global;
 import com.rexisoftware.connstatus.MyLog;
-import com.rexisoftware.connstatus.data.BatteryData;
 
 public class MyGps extends ServicePlugin {
     private static final String TAG = Global.CAT_GPS;
@@ -42,7 +36,7 @@ public class MyGps extends ServicePlugin {
                 if (getService().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     Location l = mLocation.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                     if (l != null) {
-                        MyLog.log(TAG, "lat="+l.getLatitude() + " long=" + l.getLongitude() + " alt=" + l.getAltitude() + " sat=" + l.getExtras().getInt("satellites"));
+                        MyLog.log(TAG, "Last loc: lat=" + l.getLatitude() + " long=" + l.getLongitude());
                     } else {
                         MyLog.log(TAG, "Location not determined");
                     }
@@ -100,8 +94,8 @@ public class MyGps extends ServicePlugin {
         }
 
         @Override
-        public void onLocationChanged(@NonNull Location location) {
-            MyLog.log(TAG, "MyGPS: " + location);
+        public void onLocationChanged(@NonNull Location l) {
+            MyLog.log(TAG, "lat=" + l.getLatitude() + " long=" + l.getLongitude() + " alt=" + l.getAltitude() + " sat=" + l.getExtras().getInt("satellites"));
         }
     }
 }
