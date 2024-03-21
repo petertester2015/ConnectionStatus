@@ -11,6 +11,7 @@ public class Global {
     public static final String MESSAGE = "msg";
 
     public static final String CAT_BATTERY = "batt";
+    public static final String CAT_GPS = "gps";
     public static final String CAT_PHONE_STATE = "phstate";
     public static final String CAT_MYSERVICE = "myservice";
     public static final String CAT_MAIN = "main";
@@ -27,6 +28,7 @@ public class Global {
     //public static final String TAG = "mylog";
     public static final String NETWORKDATA = "netwdata";
     public static final String CAT_NETWORK = "netw";
+    public static final String GPSDATA = "gpsdata";
     private static final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMdd_HHmmss");
     private static final SimpleDateFormat sdf2 = new SimpleDateFormat("HHmmss.SSS");
     private static final SimpleDateFormat sdf3 = new SimpleDateFormat("HHmmss");

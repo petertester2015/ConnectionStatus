@@ -25,6 +25,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.rexisoftware.connstatus.data.BatteryData;
 import com.rexisoftware.connstatus.data.CellularData;
+import com.rexisoftware.connstatus.data.GpsData;
 import com.rexisoftware.connstatus.data.LogData;
 import com.rexisoftware.connstatus.data.NetworkData;
 import com.rexisoftware.connstatus.data.WifiData;
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
                     WifiData.addData(message);
                 } else if (Global.CAT_NETWORK.equals(cat)) {
                     NetworkData.addData(message);
+                } else if (Global.CAT_GPS.equals(cat)) {
+                    GpsData.addData(message);
                 }
                 LogData.addData("cat=" + cat + " msg=" + message);
             }

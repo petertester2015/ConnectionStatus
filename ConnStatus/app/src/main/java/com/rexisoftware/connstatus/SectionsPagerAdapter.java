@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.rexisoftware.connstatus.fragments.BatteryFragment;
 import com.rexisoftware.connstatus.fragments.CellularFragment;
 import com.rexisoftware.connstatus.fragments.ClockFragment;
+import com.rexisoftware.connstatus.fragments.GpsFragment;
 import com.rexisoftware.connstatus.fragments.LogFragment;
 import com.rexisoftware.connstatus.fragments.NetworkFragment;
 import com.rexisoftware.connstatus.fragments.SettingsFragment;
@@ -27,7 +28,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     private final static String TAG = Global.CAT_PAG_ADAPTER;
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_clk, R.string.tab_text_settings, R.string.tab_text_clock, R.string.tab_text_network, R.string.tab_text_wifi, R.string.tab_text_cell, R.string.tab_text_battery};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_clk, R.string.tab_text_settings, R.string.tab_text_clock, R.string.tab_text_network, R.string.tab_text_wifi, R.string.tab_text_cell, R.string.tab_text_battery, R.string.tab_text_gps};
     private static Fragment[] sFragments;
     private final Context mContext;
 
@@ -43,6 +44,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         sFragments[4] = WifiFragment.newInstance("", "");
         sFragments[5] = CellularFragment.newInstance("", "");
         sFragments[6] = BatteryFragment.newInstance("", "");
+        sFragments[7] = GpsFragment.newInstance("", "");
     }
 
     @NonNull

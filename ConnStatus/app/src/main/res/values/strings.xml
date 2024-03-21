@@ -17,4 +17,5 @@
     <string name="reply_title">Default reply action</string>
 
     <string name="tab_text_network">Netw</string>
+    <string name="tab_text_gps">gps</string>
 </resources>

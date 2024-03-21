@@ -54,4 +54,11 @@ public abstract class ServicePlugin extends Thread {
     protected MyService getService() {
         return MyService.getCurrent();
     }
+
+    public boolean requireExtraSetup(){
+        return false;
+    }
+    public boolean doExtraSetup(){
+        return true;
+    }
 }
